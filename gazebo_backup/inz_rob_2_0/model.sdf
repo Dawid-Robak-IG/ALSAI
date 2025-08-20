@@ -146,6 +146,29 @@
         <xyz>0 1 0</xyz>
       </axis>
     </joint>
+    
+    <plugin name="diff_drive" filename="libgazebo_ros_diff_drive.so">
+			<ros>
+				<namespace>/</namespace>
+				<argument>cmd_vel:=cmd_vel</argument>
+				<argument>odom:=odom</argument>
+			</ros>
+
+			<left_joint>left_wheel_hinge</left_joint>
+			<right_joint>right_wheel_hinge</right_joint>
+
+			<wheel_separation>0.58</wheel_separation>
+			<wheel_diameter>0.25</wheel_diameter>
+
+			<command_topic>cmd_vel</command_topic>
+			<odometry_topic>odom</odometry_topic>
+
+			<odometry_frame>odom</odometry_frame>
+			<robot_base_frame>base_link</robot_base_frame>
+
+			<publish_odom>true</publish_odom>
+			<publish_tf>true</publish_tf>
+		</plugin>
 
   </model>
  </sdf>
