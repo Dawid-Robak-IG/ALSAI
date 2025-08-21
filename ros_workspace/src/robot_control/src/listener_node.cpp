@@ -24,8 +24,9 @@ class StateListener : public rclcpp::Node{
     std::ofstream joint_file;
     std::ofstream laser_file;
 
+public:
     StateListener() : Node("StateListener"){
-        sessions_path = "~/inzynierka/ALSAI/sessions";
+        sessions_path = "inzynierka/ALSAI/sessions";
         odom_sub = this->create_subscription<nav_msgs::msg::Odometry>(
             "odom",
             10,
@@ -37,13 +38,16 @@ class StateListener : public rclcpp::Node{
             std::bind(&StateListener::joint_callback, this, std::placeholders::_1)
         );
         laser_sub = this->create_subscription<sensor_msgs::msg::LaserScan>(
-            "laser/out ",
+            "laser/out",
             10,
             std::bind(&StateListener::laser_callback, this, std::placeholders::_1)
         );
+        RCLCPP_INFO(this->get_logger(), "Setup subs");
 
         std::string created_path = create_session_folder(sessions_path);
+        RCLCPP_INFO(this->get_logger(), "Creaed session folder: %s", created_path.c_str());
         open_files(created_path);
+        RCLCPP_INFO(this->get_logger(), "Created files for data");
     }
     ~StateListener(){
         odom_file.close();
@@ -86,7 +90,14 @@ class StateListener : public rclcpp::Node{
         }
         laser_file << "\n";
     }
-    std::string create_session_folder(const std::string &base_path){
+    std::string create_session_folder(std::string &base_subpath){
+        const char* home_env = std::getenv("HOME");
+        if (!home_env){
+            RCLCPP_ERROR(rclcpp::get_logger("create_session_folder"), "Nie można pobrać katalogu domowego!");
+            return "";
+        }
+        fs::path base_path = fs::path(home_env) / base_subpath;
+
         auto t = std::chrono::system_clock::now();
         std::time_t tt = std::chrono::system_clock::to_time_t(t);
         std::tm tm = *std::localtime(&tt);
@@ -94,7 +105,7 @@ class StateListener : public rclcpp::Node{
         std::ostringstream folder_name;
         folder_name << "session_" << std::put_time(&tm, "%S-%M-%H_%d-%d-%Y");
 
-        fs::path session_path = fs::path(base_path) / folder_name.str();
+        fs::path session_path = base_path / folder_name.str();
 
         if(!fs::exists(session_path)){
             fs::create_directories(session_path);
@@ -117,7 +128,8 @@ class StateListener : public rclcpp::Node{
 
 int main(int argc, char *argv[]){
     rclcpp::init(argc,argv);
-
+    auto node = std::make_shared<StateListener>();
+    rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;
 }

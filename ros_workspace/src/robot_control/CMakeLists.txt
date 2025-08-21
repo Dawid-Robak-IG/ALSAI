@@ -22,6 +22,7 @@ ament_target_dependencies(listener rclcpp nav_msgs sensor_msgs tf2)
 
 install(TARGETS
   manual
+  listener
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
