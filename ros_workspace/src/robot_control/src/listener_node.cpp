@@ -4,6 +4,8 @@
 #include "sensor_msgs/msg/laser_scan.hpp"
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2/LinearMath/Matrix3x3.h>
+#include <geometry_msgs/msg/pose_stamped.hpp>
+
 
 #include <filesystem>
 #include <fstream>
@@ -16,11 +18,13 @@ namespace fs = std::filesystem;
 
 class StateListener : public rclcpp::Node{
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub; 
+    rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr pose_sub; 
     rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr joint_sub;
     rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr laser_sub;
 
     std::string sessions_path;
     std::ofstream odom_file;
+    std::ofstream pose_file;
     std::ofstream joint_file;
     std::ofstream laser_file;
 
@@ -31,6 +35,11 @@ public:
             "odom",
             10,
             std::bind(&StateListener::odom_callback, this, std::placeholders::_1)
+        );
+        pose_sub = this->create_subscription<geometry_msgs::msg::PoseStamped>(
+            "robot_pose",
+            10,
+            std::bind(&StateListener::pose_callback, this, std::placeholders::_1)
         );
         joint_sub = this->create_subscription<sensor_msgs::msg::JointState>(
             "joint_states",
@@ -51,28 +60,32 @@ public:
     }
     ~StateListener(){
         odom_file.close();
+        pose_file.close();
         laser_file.close();
         joint_file.close();
     }
 
-
-    void odom_callback(const nav_msgs::msg::Odometry::SharedPtr msg){
-        double x = msg->pose.pose.position.x;
-        double y = msg->pose.pose.position.y;
-        tf2::Quaternion q(
-            msg->pose.pose.orientation.x,
-            msg->pose.pose.orientation.y,
-            msg->pose.pose.orientation.z,
-            msg->pose.pose.orientation.w);
-        tf2::Matrix3x3 m(q);
-        double roll, pitch, yaw;
-        m.getRPY(roll, pitch, yaw);        
+    void odom_callback(const nav_msgs::msg::Odometry::SharedPtr msg){  
         double v_linear = msg->twist.twist.linear.x;
         double v_angular = msg->twist.twist.angular.z;
 
         odom_file << msg->header.stamp.sec + msg->header.stamp.nanosec*1e-9
-                << "," << x << "," << y << "," << yaw
-                << "," << v_linear << "," << v_angular << "\n";
+                << v_linear << "," << v_angular << "\n";
+    }
+    void pose_callback(const geometry_msgs::msg::PoseStamped::SharedPtr msg){
+        double x = msg->pose.position.x;
+        double y = msg->pose.position.y;
+        tf2::Quaternion q(
+            msg->pose.orientation.x,
+            msg->pose.orientation.y,
+            msg->pose.orientation.z,
+            msg->pose.orientation.w);
+        tf2::Matrix3x3 m(q);
+        double roll, pitch, yaw;
+        m.getRPY(roll, pitch, yaw);        
+
+        pose_file << msg->header.stamp.sec + msg->header.stamp.nanosec*1e-9
+                << "," << x << "," << y << "," << yaw << "\n";
     }
     void joint_callback(const sensor_msgs::msg::JointState::SharedPtr msg){
         double left_vel = msg->velocity[0];
@@ -114,11 +127,11 @@ public:
         return session_path.string();
     }
     void open_files(const std::string &session_folder){
-        odom_file.open(session_folder + "/odom.txt", std::ios::out);
+        pose_file.open(session_folder + "/pose.txt", std::ios::out);
         laser_file.open(session_folder + "/scan.txt", std::ios::out);
         joint_file.open(session_folder + "/joint.txt", std::ios::out);
 
-        odom_file << "time,x,y,yaw,v_linear,v_angular\n";
+        pose_file << "time,x,y,yaw\n";
         joint_file << "time,left_wheel_vel,right_wheel_vel\n";
         laser_file << "time,scan_data\n";
     }

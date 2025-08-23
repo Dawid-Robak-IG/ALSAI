@@ -33,7 +33,7 @@ add_executable(manual src/manual_node.cpp)
 ament_target_dependencies(manual rclcpp geometry_msgs std_msgs)
 
 add_executable(listener src/listener_node.cpp)
-ament_target_dependencies(listener rclcpp nav_msgs sensor_msgs tf2)
+ament_target_dependencies(listener rclcpp nav_msgs sensor_msgs tf2 geometry_msgs)
 
 add_library(pose_bridge SHARED src/pose_bridge.cpp)
 ament_target_dependencies(pose_bridge gazebo rclcpp geometry_msgs)
