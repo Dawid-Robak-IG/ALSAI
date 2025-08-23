@@ -1,8 +1,19 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.5)
+cmake_policy(SET CMP0074 NEW)  # użycie poprawnego find_package
+cmake_policy(SET CMP0167 OLD)  # ignorowanie ostrzeżeń Boost/OGRE
+set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
+
 project(robot_control)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+if(POLICY CMP0054)
+  cmake_policy(SET CMP0054 NEW)
+endif()
+if(POLICY CMP0167)
+  cmake_policy(SET CMP0167 OLD)
 endif()
 
 find_package(ament_cmake REQUIRED)
@@ -13,6 +24,10 @@ find_package(nav_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 
+find_package(gazebo REQUIRED)
+include_directories(${GAZEBO_INCLUDE_DIRS})
+link_directories(${GAZEBO_LIBRARY_DIRS})
+list(APPEND CMAKE_CXX_FLAGS "${GAZEBO_CXX_FLAGS}")
 
 add_executable(manual src/manual_node.cpp)
 ament_target_dependencies(manual rclcpp geometry_msgs std_msgs)
@@ -20,9 +35,14 @@ ament_target_dependencies(manual rclcpp geometry_msgs std_msgs)
 add_executable(listener src/listener_node.cpp)
 ament_target_dependencies(listener rclcpp nav_msgs sensor_msgs tf2)
 
+add_library(pose_bridge SHARED src/pose_bridge.cpp)
+ament_target_dependencies(pose_bridge gazebo rclcpp geometry_msgs)
+target_link_libraries(pose_bridge ${GAZEBO_LIBRARIES})
+
 install(TARGETS
   manual
   listener
-  DESTINATION lib/${PROJECT_NAME})
+  pose_bridge
+  LIBRARY DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

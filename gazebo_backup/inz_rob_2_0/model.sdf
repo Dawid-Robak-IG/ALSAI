@@ -159,8 +159,8 @@
     <plugin name="diff_drive" filename="libgazebo_ros_diff_drive.so">
 			<ros>
 				<namespace>/</namespace>
-				<argument>cmd_vel:=cmd_vel</argument>
-				<argument>odom:=odom</argument>
+				<remapping>cmd_vel:=cmd_vel</remapping>
+				<remapping>odom:=odom</remapping>
 			</ros>
 
 			<left_joint>left_wheel_hinge</left_joint>
@@ -186,6 +186,10 @@
 			</ros>
 			<joint_name>left_wheel_hinge</joint_name>
     	<joint_name>right_wheel_hinge</joint_name>
+    	<update_rate>50.0</update_rate>
 		</plugin>
+
+		<plugin name="pose_bridge" filename="/home/nitron/inzynierka/ALSAI/ros_workspace/install/robot_control/lib/robot_control/libpose_bridge.so"/>
+		
   </model>
  </sdf>
