@@ -45,10 +45,15 @@ ament_target_dependencies(tf2_plugin gazebo rclcpp geometry_msgs nav_msgs tf2_ro
 target_link_libraries(tf2_plugin ${GAZEBO_LIBRARIES})
 
 install(TARGETS
-  manual
-  listener
   pose_bridge
   tf2_plugin
   LIBRARY DESTINATION lib/${PROJECT_NAME})
+
+install(TARGETS
+  manual
+  listener
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
+
 
 ament_package()
