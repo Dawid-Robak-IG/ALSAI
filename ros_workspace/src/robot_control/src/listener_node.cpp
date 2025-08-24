@@ -30,7 +30,7 @@ class StateListener : public rclcpp::Node{
 
 public:
     StateListener() : Node("StateListener"){
-        sessions_path = "inzynierka/ALSAI/sessions";
+        sessions_path = "ALSAI/sessions";
         odom_sub = this->create_subscription<nav_msgs::msg::Odometry>(
             "odom",
             10,

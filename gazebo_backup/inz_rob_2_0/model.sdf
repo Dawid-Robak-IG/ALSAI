@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <sdf version='1.5'>
   <model name="mobile_base">
-    <link name='chassis'>
+    <link name='base_link'>
       <pose>0 0 .25 0 0 0</pose>
 
       <inertial>
@@ -56,9 +56,12 @@
           </sphere>
         </geometry>
       </visual>
-      
-      <sensor name="laser" type="ray">
-		    <pose>0.01 0 0.2 0 -0 0</pose>
+    </link>
+    
+    
+    <link name="laser_link">
+    	<sensor name="laser" type="ray">
+		    <pose>0.01 0 0.45 0 -0 0</pose>
 		    <ray>
 		      <scan>
 		        <horizontal>
@@ -81,20 +84,24 @@
 		    </ray>
 		    <plugin name="laser" filename="libRayPlugin.so" />
 		    <always_on>1</always_on>
-		    <update_rate>30</update_rate>
+		    <update_rate>7</update_rate>
 		    <visualize>true</visualize>
 		    
 		    <plugin name="laser" filename="libgazebo_ros_ray_sensor.so">
 					<ros>
 						<namespace>/</namespace>
-						<remapping>scan:=scan</remapping>
+						<remapping>laser/out:=scan</remapping>
 					</ros>
 					<output_type>sensor_msgs/LaserScan</output_type>
 					<frame_name>laser_link</frame_name>
 			  </plugin>
 		  </sensor>
     </link>
-    
+    <joint name="laser_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>laser_link</child>
+      <pose>0.01 0 0.45 0 0 0</pose>
+    </joint>
     
     <link name="left_wheel">
       <pose>0.2 0.29 0.125 0 1.5707 1.5707</pose>
@@ -139,7 +146,7 @@
     <joint type="revolute" name="left_wheel_hinge">
       <pose>0 0 -0.03 0 0 0</pose>
       <child>left_wheel</child>
-      <parent>chassis</parent>
+      <parent>base_link</parent>
       <axis>
         <use_parent_model_frame>true</use_parent_model_frame>
         <xyz>0 1 0</xyz>
@@ -149,7 +156,7 @@
     <joint type="revolute" name="right_wheel_hinge">
       <pose>0 0 0.03 0 0 0</pose>
       <child>right_wheel</child>
-      <parent>chassis</parent>
+      <parent>base_link</parent>
       <axis>
         <use_parent_model_frame>true</use_parent_model_frame>
         <xyz>0 1 0</xyz>
@@ -173,7 +180,7 @@
 			<odometry_topic>odom</odometry_topic>
 
 			<odometry_frame>odom</odometry_frame>
-			<robot_base_frame>chassis</robot_base_frame>
+			<robot_base_frame>base_link</robot_base_frame>
 
 			<publish_odom>true</publish_odom>
 			<publish_tf>true</publish_tf>
@@ -189,7 +196,13 @@
     	<update_rate>50.0</update_rate>
 		</plugin>
 
-		<plugin name="pose_bridge" filename="/home/nitron/inzynierka/ALSAI/ros_workspace/install/robot_control/lib/robot_control/libpose_bridge.so"/>
+		<plugin name="pose_bridge" filename="/home/nitron/ALSAI/ros_workspace/install/robot_control/lib/robot_control/libpose_bridge.so"/>
+		
+		<plugin name="gazebo_tf_plugin" filename="/home/nitron/ALSAI/ros_workspace/install/robot_control/lib/robot_control/libtf2_plugin.so">
+			<ros>
+				<namespace>/</namespace>
+			</ros>
+		</plugin>
 		
   </model>
  </sdf>

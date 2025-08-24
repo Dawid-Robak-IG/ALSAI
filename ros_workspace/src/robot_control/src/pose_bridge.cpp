@@ -32,7 +32,6 @@ namespace gazebo
       if (!rclcpp::ok())
         rclcpp::init(0, nullptr);
 
-      // ROS 2 node i publisher
       ros_node_ = rclcpp::Node::make_shared("pose_bridge_model");
       pose_pub_ = ros_node_->create_publisher<geometry_msgs::msg::PoseStamped>("/robot_pose", 10);
 
@@ -42,7 +41,6 @@ namespace gazebo
           this->executor_->spin();
       });
 
-      // Rejestracja update callbacka Gazebo (co krok symulacji)
       update_connection_ = event::Events::ConnectWorldUpdateBegin(
           std::bind(&PoseBridgePlugin::OnUpdate, this));
 

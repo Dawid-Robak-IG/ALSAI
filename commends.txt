@@ -1,0 +1,6 @@
+ros2 launch slam_toolbox online_async_launch.py use_sim_time:=True \
+    scan_topic:=/laser/out
+
+
+ros2 run nav2_map_server map_saver_cli -f ~/ALSAI/maps/maze2
+
