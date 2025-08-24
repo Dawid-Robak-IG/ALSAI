@@ -64,9 +64,9 @@ private:
     void OdomCallback(const nav_msgs::msg::Odometry::SharedPtr msg)
     {
         geometry_msgs::msg::TransformStamped tf_msg;
-        tf_msg.header.stamp = msg->header.stamp;
-        tf_msg.header.frame_id = msg->header.frame_id;
-        tf_msg.child_frame_id = base_link_frame_;
+        tf_msg.header.stamp = node_->now();
+        tf_msg.header.frame_id = "odom";  
+        tf_msg.child_frame_id = "base_link"; 
         tf_msg.transform.translation.x = msg->pose.pose.position.x;
         tf_msg.transform.translation.y = msg->pose.pose.position.y;
         tf_msg.transform.translation.z = msg->pose.pose.position.z;
@@ -78,7 +78,7 @@ private:
     {
         geometry_msgs::msg::TransformStamped static_tf;
 
-        static_tf.header.stamp = node_->get_clock()->now();
+        static_tf.header.stamp = rclcpp::Time(0);
         static_tf.header.frame_id = "base_link";
         static_tf.child_frame_id = "laser_link";
 
