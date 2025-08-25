@@ -9,6 +9,7 @@
 
 #include <thread>
 #include <memory>
+#include <iostream>
 
 namespace gazebo
 {
@@ -38,7 +39,18 @@ public:
     {
         model_ = _model;
 
+        if (!rclcpp::ok()) {
+            int argc = 0;
+            char **argv = nullptr;
+            rclcpp::init(argc, argv);
+        }
+
+        std::cout<< "Going to create node for tf plugin\n";
+
         node_ = rclcpp::Node::make_shared("tf2_plugin_node");
+
+        RCLCPP_INFO(node_->get_logger(), "Node created");
+
         tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(node_);
 
         odom_topic_ = "/odom";
@@ -48,9 +60,13 @@ public:
         odom_sub_ = node_->create_subscription<nav_msgs::msg::Odometry>(
             odom_topic_, 10,
             std::bind(&GazeboTfPlugin::OdomCallback, this, std::placeholders::_1));
+
+        RCLCPP_INFO(node_->get_logger(), "Odom sub created");
         
         static_broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(node_);
         BroadcastStaticLaserTf();
+
+        RCLCPP_INFO(node_->get_logger(), "Static laser broadcasted");
 
         executor_ = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
         executor_->add_node(node_);
@@ -64,7 +80,7 @@ private:
     void OdomCallback(const nav_msgs::msg::Odometry::SharedPtr msg)
     {
         geometry_msgs::msg::TransformStamped tf_msg;
-        tf_msg.header.stamp = node_->now();
+        tf_msg.header.stamp = msg->header.stamp;
         tf_msg.header.frame_id = "odom";  
         tf_msg.child_frame_id = "base_link"; 
         tf_msg.transform.translation.x = msg->pose.pose.position.x;
@@ -78,7 +94,7 @@ private:
     {
         geometry_msgs::msg::TransformStamped static_tf;
 
-        static_tf.header.stamp = rclcpp::Time(0);
+        static_tf.header.stamp = node_->get_clock()->now();
         static_tf.header.frame_id = "base_link";
         static_tf.child_frame_id = "laser_link";
 
