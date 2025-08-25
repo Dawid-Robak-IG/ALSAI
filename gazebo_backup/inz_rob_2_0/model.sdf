@@ -77,10 +77,8 @@
 		        <resolution>0.01</resolution>
 		      </range>
 		      <noise>
-		        <type>gaussian</type>
-		        <mean>0.0</mean>
-		        <stddev>0.01</stddev>
-		      </noise>
+						<type>none</type>
+					</noise>
 		    </ray>
 		    <plugin name="laser" filename="libRayPlugin.so" />
 		    <always_on>1</always_on>
@@ -203,6 +201,14 @@
 				<namespace>/</namespace>
 			</ros>
 		</plugin>
+		
+		<plugin name="ros_init" filename="libgazebo_ros_init.so">
+		  <ros>
+		      <namespace>/</namespace>
+		      <remapping>clock:=/clock</remapping>
+		      <use_sim_time>true</use_sim_time>
+		  </ros>
+	</plugin>
 		
   </model>
  </sdf>

@@ -47,8 +47,8 @@ private:
             cmd.angular.z = 0.0;
 
             switch (c) {
-                case 'w': cmd.linear.x = 0.26; publisher->publish(cmd); break;
-                case 's': cmd.linear.x = -0.26; publisher->publish(cmd); break;
+                case 'w': cmd.linear.x = 0.40; publisher->publish(cmd); break;
+                case 's': cmd.linear.x = -0.40; publisher->publish(cmd); break;
                 case 'a': cmd.angular.z = 1.0; publisher->publish(cmd); break;
                 case 'd': cmd.angular.z = -1.0; publisher->publish(cmd); break;
                 case ' ': cmd.linear.x = 0.0; cmd.angular.z = 0.0; publisher->publish(cmd); break;

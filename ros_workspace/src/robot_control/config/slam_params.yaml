@@ -5,3 +5,7 @@ slam_toolbox:
   scan_topic: /scan
   use_sim_time: true
   mode: mapping
+  transform_timeout: 1.0 
+  map_update_interval: 1.0
+  use_scan_matching: true
+  do_loop_closing: true 
