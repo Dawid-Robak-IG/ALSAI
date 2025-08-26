@@ -27,8 +27,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="1.0633188"
-     inkscape:cx="282.60575"
-     inkscape:cy="350.31828"
+     inkscape:cx="286.36755"
+     inkscape:cy="365.3655"
      inkscape:window-width="1858"
      inkscape:window-height="1016"
      inkscape:window-x="1982"
@@ -119,6 +119,13 @@
          y2="-114.74199"
          id="line63"
          style="stroke-width:3.58099" />
+      <line
+         x1="-171.02034"
+         y1="35.14183"
+         x2="-129.99364"
+         y2="35.14183"
+         id="line63-3"
+         style="stroke-width:3.36049" />
       <line
          x1="137.53398"
          y1="-129.41222"
@@ -211,12 +218,12 @@
          id="line111"
          style="stroke-width:4.58873" />
       <line
-         x1="-15.461074"
+         x1="22.468256"
          y1="117.5785"
-         x2="99.285233"
+         x2="100.02876"
          y2="117.5785"
          id="line115"
-         style="stroke-width:4.58873" />
+         style="stroke-width:3.77262" />
       <line
          x1="405.27536"
          y1="81.984329"
@@ -227,10 +234,10 @@
       <line
          x1="-73.886826"
          y1="117.21709"
-         x2="-15.461074"
+         x2="-52.720432"
          y2="117.21709"
          id="line125"
-         style="stroke-width:3.27435" />
+         style="stroke-width:1.97082" />
       <line
          x1="366.6091"
          y1="117.21709"
@@ -337,13 +344,6 @@
          id="line195"
          style="stroke-width:5.0267" />
       <line
-         x1="137.53398"
-         y1="399.07916"
-         x2="175.78278"
-         y2="399.07916"
-         id="line197"
-         style="stroke-width:4.58873" />
-      <line
          x1="290.52905"
          y1="399.07916"
          x2="405.27536"
@@ -422,11 +422,11 @@
          style="stroke-width:3.59511" />
       <line
          x1="22.787697"
-         y1="46.751572"
+         y1="46.045799"
          x2="22.787697"
-         y2="152.44984"
+         y2="119.23007"
          id="line251"
-         style="stroke-width:4.58873" />
+         style="stroke-width:3.81828" />
       <line
          x1="61.036453"
          y1="-199.87773"
@@ -459,9 +459,9 @@
          x1="137.53398"
          y1="363.29321"
          x2="137.53398"
-         y2="434.31189"
+         y2="399.07916"
          id="line281"
-         style="stroke-width:6.51487" />
+         style="stroke-width:4.62462" />
       <line
          x1="175.78278"
          y1="-129.41222"
@@ -550,9 +550,9 @@
          x1="405.27536"
          y1="-199.87773"
          x2="405.27536"
-         y2="11.51883"
+         y2="-23.71393"
          id="line355"
-         style="stroke-width:5.0267" />
+         style="stroke-width:4.58873" />
       <line
          x1="405.27536"
          y1="11.51883"
@@ -569,11 +569,11 @@
          style="stroke-width:4.58873" />
       <line
          x1="443.52414"
-         y1="-199.87773"
+         y1="-94.179451"
          x2="443.52414"
          y2="11.518829"
          id="line367"
-         style="stroke-width:5.0267" />
+         style="stroke-width:3.55441" />
       <line
          x1="481.77289"
          y1="-195.70689"
