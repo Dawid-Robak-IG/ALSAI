@@ -26,6 +26,21 @@ def generate_launch_description():
             }]
         ),
 
+        # AMCL Localization
+        Node(
+            package='nav2_amcl',
+            executable='amcl',
+            name='amcl',
+            output='screen',
+            parameters=[{
+                'use_sim_time': True,
+                'yaml_filename': '/home/nitron/ALSAI/maps/maze2.yaml',
+                'base_frame_id': 'base_link',
+                'odom_frame': 'odom',
+                'scan_topic': 'scan',
+            }]
+        ),
+
         # # Planner Server
         Node(
             package='nav2_planner',
@@ -63,21 +78,6 @@ def generate_launch_description():
             }]
         ),
 
-        # AMCL Localization
-        Node(
-            package='nav2_amcl',
-            executable='amcl',
-            name='amcl',
-            output='screen',
-            parameters=[{
-                'use_sim_time': True,
-                'yaml_filename': '/home/nitron/ALSAI/maps/maze2.yaml',
-                'base_frame_id': 'base_link',
-                'odom_frame': 'odom',
-                'scan_topic': 'scan',
-            }]
-        ),
-
         # Lifecycle Manager
         Node(
             package='nav2_lifecycle_manager',
@@ -87,7 +87,6 @@ def generate_launch_description():
             parameters=[{
                 'use_sim_time': True,
                 'autostart': True,
-                # 'node_names': ['map_server', 'planner_server', 'controller_server', 'bt_navigator']
                 'node_names': ['map_server', 'amcl', 'planner_server', 'controller_server']
 
             }]
