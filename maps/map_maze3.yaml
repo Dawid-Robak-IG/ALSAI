@@ -1,4 +1,4 @@
-image: maze2.pgm
+image: maze3.pgm
 mode: trinary
 resolution: 0.05
 origin: [-0.724, -3.64, 0]

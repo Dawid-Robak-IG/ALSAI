@@ -47,7 +47,7 @@ public:
             std::bind(&StateListener::joint_callback, this, std::placeholders::_1)
         );
         laser_sub = this->create_subscription<sensor_msgs::msg::LaserScan>(
-            "laser/out",
+            "scan",
             10,
             std::bind(&StateListener::laser_callback, this, std::placeholders::_1)
         );
