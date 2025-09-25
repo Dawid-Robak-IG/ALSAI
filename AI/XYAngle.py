@@ -18,7 +18,7 @@ init(autoreset=True)
 GREEN = "\033[32m"
 
 DELTA_DIST = 0.5
-DELTA_ANGLE = 180.0
+DELTA_ANGLE = np.deg2rad(180.0)
 
 if len(sys.argv) < 2:
     rosbag_path = "../rosbags/map1_run2/map1_run2_0.db3"

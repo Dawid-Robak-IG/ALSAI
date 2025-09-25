@@ -1,8 +1,0 @@
-<?xml version="1.0" ?>
-<sdf version="1.6">
-  <world name="maze2_world">
-    <include>
-      <uri>file:///home/nitron/ALSAI/worlds/maze2/model.sdf</uri>
-    </include>
-  </world>
-</sdf>

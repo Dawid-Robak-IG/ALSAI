@@ -3,7 +3,11 @@ import xml.etree.ElementTree as ET
 import math
 import os
 
-def generate_model(svg_file, model_name="labyrinth", wall_height=2.5, wall_thickness=0.2):
+def generate_model(svg_file, wall_height=2.5, wall_thickness=0.2):
+    model_name=svg_file[0:-4]
+    svg_file = os.path.expanduser(f"~/ALSAI/worlds/pics/{svg_file}")
+    output_dir=os.path.expanduser(f"~/ALSAI/worlds/{model_name}")
+    resolution=8.0
     tree = ET.parse(svg_file)
     root = tree.getroot()
 
@@ -12,10 +16,10 @@ def generate_model(svg_file, model_name="labyrinth", wall_height=2.5, wall_thick
     walls = []
 
     for line in root.findall(".//svg:line", ns):
-        x1 = float(line.get("x1"))
-        y1 = float(line.get("y1"))
-        x2 = float(line.get("x2"))
-        y2 = float(line.get("y2"))
+        x1 = float(line.get("x1")) / resolution
+        y1 = float(line.get("y1")) / resolution
+        x2 = float(line.get("x2")) / resolution
+        y2 = float(line.get("y2")) / resolution
 
         length = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
@@ -55,12 +59,13 @@ def generate_model(svg_file, model_name="labyrinth", wall_height=2.5, wall_thick
     sdf_lines.append('  </model>')
     sdf_lines.append('</sdf>')
 
-    with open("model.sdf", "w") as f:
+    os.makedirs(output_dir, exist_ok=True)
+    sdf_path = os.path.join(output_dir, "model.sdf")
+    config_path = os.path.join(output_dir, "model.config")
+
+    with open(sdf_path, "w") as f:
         f.write("\n".join(sdf_lines))
 
-    # ---------------------
-    # model.config
-    # ---------------------
     config = f"""<?xml version="1.0"?>
 <model>
   <name>{model_name}</name>
@@ -75,7 +80,7 @@ def generate_model(svg_file, model_name="labyrinth", wall_height=2.5, wall_thick
   </description>
 </model>
 """
-    with open("model.config", "w") as f:
+    with open(config_path, "w") as f:
         f.write(config)
 
     print("✅ Wygenerowano model.sdf i model.config")
