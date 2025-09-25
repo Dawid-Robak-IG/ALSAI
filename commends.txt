@@ -2,4 +2,4 @@ ros2 launch nav2_bringup navigation_launch.py map:=/home/nitron/ALSAI/maps/map_m
 
 
 
-ros2 bag record /odom /scan /joint_states /robot_pose -o ~/rosbags/map3_run1
+ros2 bag record /odom /scan /joint_states /robot_pose -o ~/ALSAI/rosbags/map3_run1
