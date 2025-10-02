@@ -102,6 +102,52 @@ def convert_paths_to_lines(svg_in, svg_out=None):
 
         changed += 1
 
+        # --- dodatkowo obsłuż polyline ---
+    polylines = root.findall(".//svg:polyline", ns)
+    if not polylines:  # gdy brak namespace
+        polylines = root.findall(".//polyline")
+
+    for poly in polylines:
+        pts = poly.get("points")
+        if not pts:
+            continue
+        # zamiana stringa "x1,y1 x2,y2 ..." na listę krotek
+        coords = []
+        for pair in pts.strip().split():
+            if "," in pair:
+                x, y = pair.split(",")
+                coords.append((float(x), float(y)))
+
+        if len(coords) < 2:
+            continue
+
+        style = poly.get("style", "stroke:black;stroke-width:1")
+
+        parent = None
+        for p in root.iter():
+            for idx, child in enumerate(list(p)):
+                if child is poly:
+                    parent = p
+                    p.remove(child)
+                    # wstaw wszystkie segmenty linii
+                    for j in range(len(coords) - 1):
+                        x1, y1 = coords[j]
+                        x2, y2 = coords[j+1]
+                        line = ET.Element("ns0:line", {
+                            "x1": str(x1),
+                            "y1": str(y1),
+                            "x2": str(x2),
+                            "y2": str(y2),
+                            "style": style
+                        })
+                        p.insert(idx + j, line)
+                    break
+            if parent:
+                break
+
+        changed += 1
+
+
     if not svg_out:
         svg_out = svg_in.replace(".svg", "_lines.svg")
 
