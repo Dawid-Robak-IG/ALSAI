@@ -8,7 +8,7 @@ from ament_index_python.packages import get_package_share_directory
 from launch.actions import IncludeLaunchDescription
 
 def generate_launch_description():
-    world_path = '/home/nitron/ALSAI/worlds/maze4_world'
+    world_path = '/home/nitron/ALSAI/worlds/maze1_world'
     sdf_path = '/home/nitron/ALSAI/gazebo_backup/inz_rob_2_0/model.sdf'
 
     gazebo_ros_pkg = os.path.join(

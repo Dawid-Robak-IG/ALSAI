@@ -20,7 +20,7 @@ def generate_launch_description():
             output='screen',
             parameters=[{
                 'use_sim_time': True,
-                'yaml_filename': '/home/nitron/ALSAI/maps/maze2.yaml',
+                'yaml_filename': '/home/nitron/ALSAI/maps/maze1.yaml',
                 'global_frame': 'map',
                 'robot_base_frame': 'base_link'
             }]
@@ -34,7 +34,7 @@ def generate_launch_description():
             output='screen',
             parameters=[{
                 'use_sim_time': True,
-                'yaml_filename': '/home/nitron/ALSAI/maps/maze2.yaml',
+                'yaml_filename': '/home/nitron/ALSAI/maps/maze1.yaml',
                 'base_frame_id': 'base_link',
                 'odom_frame': 'odom',
                 'scan_topic': 'scan',
