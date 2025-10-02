@@ -7,7 +7,7 @@ def generate_model(svg_file, wall_height=2.5, wall_thickness=0.2):
     model_name=svg_file[0:-4]
     svg_file = os.path.expanduser(f"~/ALSAI/worlds/pics/{svg_file}")
     output_dir=os.path.expanduser(f"~/ALSAI/worlds/{model_name}")
-    resolution=8.0
+    resolution=0.1
     tree = ET.parse(svg_file)
     root = tree.getroot()
 
@@ -16,10 +16,10 @@ def generate_model(svg_file, wall_height=2.5, wall_thickness=0.2):
     walls = []
 
     for line in root.findall(".//svg:line", ns):
-        x1 = float(line.get("x1")) / resolution
-        y1 = float(line.get("y1")) / resolution
-        x2 = float(line.get("x2")) / resolution
-        y2 = float(line.get("y2")) / resolution
+        x1 = float(line.get("x1")) * resolution
+        y1 = float(line.get("y1")) * resolution
+        x2 = float(line.get("x2")) * resolution
+        y2 = float(line.get("y2")) * resolution
 
         length = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
