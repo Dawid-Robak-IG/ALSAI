@@ -7,7 +7,7 @@ def generate_model(svg_file, wall_height=2.5, wall_thickness=0.2):
     model_name=svg_file[0:-4]
     svg_file = os.path.expanduser(f"~/ALSAI/worlds/pics/{svg_file}")
     output_dir=os.path.expanduser(f"~/ALSAI/worlds/{model_name}")
-    resolution=0.06
+    resolution= 0.1 #0.06
     tree = ET.parse(svg_file)
     root = tree.getroot()
 
