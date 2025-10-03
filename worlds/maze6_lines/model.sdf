@@ -1,0 +1,1145 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="maze6_lines">
+    <static>true</static>
+    <link name="wall_0">
+      <pose>-0.9276644999999997 -16.2205938 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>18.3594066 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>18.3594066 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_1">
+      <pose>22.0215963 -16.2205938 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>27.539114999999995 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>27.539114999999995 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_2">
+      <pose>-2.0751270299999995 -11.9926638 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.2949251799999995 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.2949251799999995 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_3">
+      <pose>4.80965058 -11.9926638 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.2949268 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.2949268 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_4">
+      <pose>26.6114484 -11.9926638 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>4.589853600000001 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>4.589853600000001 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_5">
+      <pose>34.6436886 -9.8786982 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.2949303999999984 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.2949303999999984 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_6">
+      <pose>-8.9153424 -7.764733199999999 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.3840508000000016 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.3840508000000016 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_7">
+      <pose>-1.878795504 -6.884519399999999 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.7952387919999997 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.7952387919999997 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_8">
+      <pose>-9.0304194 2.1085097999999998 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.461601999999999 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.461601999999999 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_9">
+      <pose>9.3995028 -7.764733199999999 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.2949279999999987 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.2949279999999987 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_10">
+      <pose>12.841892099999999 -7.764733199999999 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>4.5898506 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>4.5898506 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_11">
+      <pose>27.758910899999997 -5.65076706 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.2949250000000028 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.2949250000000028 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_12">
+      <pose>16.5713154 -0.398196858 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.8689959999999974 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.8689959999999974 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_13">
+      <pose>23.1690582 -1.4228358 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.294926799999999 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.294926799999999 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_14">
+      <pose>34.6436886 -4.360534499999999 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.2949303999999984 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.2949303999999984 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_15">
+      <pose>14.894624699999998 2.8050943200000003 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>5.074236599999997 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>5.074236599999997 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_16">
+      <pose>27.758910899999997 4.91905974 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>6.884778600000001 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>6.884778600000001 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_17">
+      <pose>-3.79821774 7.0330254 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>1.26998364 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>1.26998364 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_18">
+      <pose>23.144008499999998 7.0330254 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.294924999999999 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.294924999999999 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_19">
+      <pose>0.5545101900000002 9.1469904 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>7.608610860000001 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>7.608610860000001 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_20">
+      <pose>12.841892099999999 9.1469904 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>4.5898506 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>4.5898506 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_21">
+      <pose>26.8426473 13.374922199999999 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>5.124882599999999 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>5.124882599999999 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_22">
+      <pose>13.2070638 17.6028534 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>3.8595071999999995 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>3.8595071999999995 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_23">
+      <pose>18.5792055 17.6028534 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.2949250000000028 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.2949250000000028 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_24">
+      <pose>2.7647120099999998 16.084273800000002 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>7.25997318 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>7.25997318 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_25">
+      <pose>10.5469647 21.797592599999998 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>4.589851799999998 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>4.589851799999998 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_26">
+      <pose>16.284280199999998 17.5982484 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.2949255999999973 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.2949255999999973 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_27">
+      <pose>1.3672615500000007 21.799174799999996 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>13.769554500000002 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>13.769554500000002 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_28">
+      <pose>2.5147247999999998 26.0587134 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>25.2441852 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>25.2441852 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_29">
+      <pose>25.463985599999997 26.0587134 1.25 0 0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>20.6543364 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>20.6543364 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_30">
+      <pose>-10.1073678 4.919059799999999 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>42.2793072 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>42.2793072 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_31">
+      <pose>-5.5793619 18.4485351 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>5.919294600000002 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>5.919294600000002 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_32">
+      <pose>-3.2225896199999995 5.97604236 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>6.34189608 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>6.34189608 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_33">
+      <pose>-0.91644624 15.2892045 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>1.590138600000003 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>1.590138600000003 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_34">
+      <pose>5.95711398 -0.31160783999999975 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>6.23340432 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>6.23340432 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_35">
+      <pose>10.5469668 -5.6507673 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>4.2279317999999995 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>4.2279317999999995 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_36">
+      <pose>15.1368174 -5.6507673 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>4.2279317999999995 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>4.2279317999999995 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_37">
+      <pose>15.1368174 10.3853517 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.6521866000000003 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.6521866000000003 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_38">
+      <pose>19.726668 -8.883205440000001 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>6.218916720000001 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>6.218916720000001 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_39">
+      <pose>21.996546 3.8620775999999997 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>6.3418956 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>6.3418956 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_40">
+      <pose>19.726668 14.679535199999998 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>5.9289132 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>5.9289132 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_41">
+      <pose>19.726668 22.4002689 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>1.0944306000000026 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>1.0944306000000026 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_42">
+      <pose>22.0215948 -0.3658530000000001 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.1139656000000002 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.1139656000000002 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_43">
+      <pose>24.3107682 16.5458706 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>6.341896800000002 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>6.341896800000002 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_44">
+      <pose>24.316521599999998 5.97604257 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.11396566 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.11396566 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_45">
+      <pose>24.316521599999998 16.5458706 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.113965600000002 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.113965600000002 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_46">
+      <pose>28.9063734 -8.72597478 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>6.032877239999999 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>6.032877239999999 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_47">
+      <pose>31.2013002 7.03302507 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>4.22793066 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>4.22793066 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_48">
+      <pose>31.2013002 19.716819 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>4.227931199999997 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>4.227931199999997 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_49">
+      <pose>35.7911538 4.919059799999999 1.25 0 0 1.5707963267948966</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>42.2793072 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>42.2793072 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_50">
+      <pose>-0.7044201 -9.438592199999999 1.25 0 0 1.4836107870428528</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>5.127620395855234 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>5.127620395855234 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_51">
+      <pose>14.7925635 -10.123398 1.25 0 0 1.4258667819012962</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>4.767309675875588 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>4.767309675875588 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_52">
+      <pose>31.941837 -1.8558938999999999 1.25 0 0 2.1262269691547444</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>5.895537720410056 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>5.895537720410056 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_53">
+      <pose>29.7512661 22.042824599999996 1.25 0 0 2.9963898796422197</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.9309101805546276 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.9309101805546276 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_54">
+      <pose>-6.1164138 4.570767 1.25 0 0 -2.170432003218642</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>5.965196123891317 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>5.965196123891317 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_55">
+      <pose>-5.499865799999999 -7.3246266 1.25 0 0 -2.946180086811349</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>4.533179483825893 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>4.533179483825893 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_56">
+      <pose>16.284280199999998 1.2034482 1.25 0 0 -2.1924625820404633</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>3.9405273072140976 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>3.9405273072140976 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_57">
+      <pose>11.452236 5.976041699999999 1.25 0 0 -1.2927052554164518</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>6.595278694243525 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>6.595278694243525 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_58">
+      <pose>1.7211848999999997 11.820562199999998 1.25 0 0 -0.7921651706748063</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>7.511347719997143 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>7.511347719997143 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_59">
+      <pose>22.0187181 12.5449998 1.25 0 0 0.34740200563893603</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>4.875351825263589 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>4.875351825263589 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_60">
+      <pose>6.2762271 -14.088085199999998 1.25 0 0 -1.4196667490314905</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>4.239161061960032 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>4.239161061960032 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_61">
+      <pose>-2.1388614 -1.1634345 1.25 0 0 2.1871361734274823</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>1.4305880644026776 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>1.4305880644026776 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_62">
+      <pose>-3.65575314 -2.3581194 1.25 0 0 -2.8350476807908382</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>4.049519298823256 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>4.049519298823256 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_63">
+      <pose>9.9996678 13.648983299999998 1.25 0 0 0.5546149452519656</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.060807483870893 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.060807483870893 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_64">
+      <pose>16.504914300000003 18.8599125 1.25 0 0 1.397671575086354</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>2.5616223151033815 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>2.5616223151033815 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_65">
+      <pose>-4.607236049999999 10.0014528 1.25 0 0 2.5797882704530535</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>3.2079608617276514 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>3.2079608617276514 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wall_66">
+      <pose>20.060104199999998 6.9246441 1.25 0 0 -3.085681991214044</pose>
+      <collision name="collision">
+        <geometry>
+          <box><size>3.8789448157558173 0.2 2.5</size></box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box><size>3.8789448157558173 0.2 2.5</size></box>
+        </geometry>
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
