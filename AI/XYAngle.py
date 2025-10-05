@@ -93,6 +93,7 @@ y = np.array(reallocates, dtype=np.float32)
 print(Fore.GREEN + "Dataset ready: ",X.shape, y.shape)
 
 scan_length = X.shape[1]
+print(scan_length)
 
 model = Sequential([
     Input(shape=(scan_length, 2)), 

@@ -1,0 +1,9 @@
+model = Sequential([
+        Input(shape=(scan_length, 2)), 
+        Conv1D(32, kernel_size=5, activation='relu'),
+        Conv1D(64, kernel_size=5, activation='relu'),
+        Flatten(),
+        Dense(64, activation ='relu'),
+        Dropout(0.2),
+        Dense(3, activation='linear')
+    ])

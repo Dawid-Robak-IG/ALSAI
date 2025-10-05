@@ -9,10 +9,9 @@ def convert_paths_to_lines(svg_in, svg_out=None):
 
     changed = 0
 
-    # Upewnij się, że namespace działa
     ns = {"svg": "http://www.w3.org/2000/svg"}
     paths = root.findall(".//svg:path", ns)
-    if not paths:  # czasem Inkscape nie zapisuje xmlns
+    if not paths:
         paths = root.findall(".//path")
 
     for path in paths:
@@ -20,19 +19,18 @@ def convert_paths_to_lines(svg_in, svg_out=None):
         if not d:
             continue
 
-        # Rozdzielamy komendy i liczby
         tokens = d.replace(",", " ").split()
         points = []
         i = 0
-        x0 = y0 = None  # pierwszy punkt ścieżki
+        x0 = y0 = None
         cur_x = cur_y = None
 
         while i < len(tokens):
             cmd = tokens[i]
-            if cmd.lower() == "m":  # MoveTo
+            if cmd.lower() == "m":
                 x = float(tokens[i+1])
                 y = float(tokens[i+2])
-                if cmd == 'm' and cur_x is not None:  # relatywne przesunięcie
+                if cmd == 'm' and cur_x is not None:
                     x += cur_x
                     y += cur_y
                 cur_x, cur_y = x, y
@@ -40,7 +38,6 @@ def convert_paths_to_lines(svg_in, svg_out=None):
                     x0, y0 = x, y
                 points.append((cur_x, cur_y))
                 i += 3
-                # jeśli po M są kolejne liczby → traktujemy jak L
                 while i + 1 < len(tokens) and not tokens[i].isalpha():
                     dx = float(tokens[i])
                     dy = float(tokens[i+1])
@@ -52,7 +49,7 @@ def convert_paths_to_lines(svg_in, svg_out=None):
                         cur_y = dy
                     points.append((cur_x, cur_y))
                     i += 2
-            elif cmd.lower() == "l":  # LineTo
+            elif cmd.lower() == "l":
                 x = float(tokens[i+1])
                 y = float(tokens[i+2])
                 if cmd == 'l':
@@ -62,21 +59,18 @@ def convert_paths_to_lines(svg_in, svg_out=None):
                     cur_x, cur_y = x, y
                 points.append((cur_x, cur_y))
                 i += 3
-            elif cmd.lower() == "z":  # ClosePath
+            elif cmd.lower() == "z":
                 if points and x0 is not None:
                     points.append((x0, y0))
                     cur_x, cur_y = x0, y0
                 i += 1
             else:
-                # nieznana komenda lub liczba → ignorujemy
                 i += 1
 
         if len(points) < 2:
-            continue  # za krótka ścieżka
-
+            continue
         style = path.get("style", "stroke:black;stroke-width:1")
 
-        # Tworzymy linie między wszystkimi punktami
         for j in range(len(points)-1):
             x1, y1 = points[j]
             x2, y2 = points[j+1]
@@ -88,7 +82,6 @@ def convert_paths_to_lines(svg_in, svg_out=None):
                 "style": style
             })
 
-            # Podmieniamy path w drzewie XML
             parent = None
             for p in root.iter():
                 for idx, child in enumerate(list(p)):
@@ -102,16 +95,14 @@ def convert_paths_to_lines(svg_in, svg_out=None):
 
         changed += 1
 
-        # --- dodatkowo obsłuż polyline ---
     polylines = root.findall(".//svg:polyline", ns)
-    if not polylines:  # gdy brak namespace
+    if not polylines:
         polylines = root.findall(".//polyline")
 
     for poly in polylines:
         pts = poly.get("points")
         if not pts:
             continue
-        # zamiana stringa "x1,y1 x2,y2 ..." na listę krotek
         coords = []
         for pair in pts.strip().split():
             if "," in pair:
@@ -129,7 +120,6 @@ def convert_paths_to_lines(svg_in, svg_out=None):
                 if child is poly:
                     parent = p
                     p.remove(child)
-                    # wstaw wszystkie segmenty linii
                     for j in range(len(coords) - 1):
                         x1, y1 = coords[j]
                         x2, y2 = coords[j+1]
