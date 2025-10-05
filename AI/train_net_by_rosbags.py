@@ -27,7 +27,7 @@ else:
 
 model_path = os.path.expanduser(f"~/ALSAI/AI/models/{model_name}")
 
-scan_length = 360
+scan_length = 640
 
 if not os.path.exists(model_path):
     model = Sequential([
@@ -39,9 +39,9 @@ if not os.path.exists(model_path):
         Dropout(0.2),
         Dense(3, activation='linear')
     ])
-    model.save(os.path.expanduser(f"~/ALSAI/AI/models"))
+    model.save(os.path.expanduser(f"~/ALSAI/AI/models/{model_name}.keras"))
 
 for name in os.listdir(os.path.expanduser(f"~/ALSAI/rosbags")):
-    if name is not "map5_run1" and name is not "map6_run1":
-        rosbag_path = os.path.expanduser("~/ALSAI/rosbags/{name}")
-        train_network.train(rosbag_path, model_name)
+    if name not in ["map5_run1", "map6_run1"]:
+        rosbag_path = os.path.expanduser(f"~/ALSAI/rosbags/{name}")
+        train_network.train(rosbag_path, os.path.expanduser(f"~/ALSAI/AI/models/{model_name}.keras"))

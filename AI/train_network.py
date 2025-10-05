@@ -15,8 +15,10 @@ from colorama import Fore, Style, init
 import os
 
 
-def train(rosbag_path, model_name):
-    model = load_model(model_name)
+def train(rosbag_path, model_path):
+    print(Fore.GREEN + "Got rosbag: ", rosbag_path)
+    print(Fore.GREEN + "Got model: ",model_path)
+    model = load_model(model_path)
 
     init(autoreset=True)
 
@@ -105,11 +107,11 @@ def train(rosbag_path, model_name):
         X_train,
         y_train,
         batch_size=32,
-        epochs=50,
+        epochs=25,
         validation_split=0.2,
         callbacks=[early_stop]
     )
     test_loss = model.evaluate(X_test,  y_test, verbose=0)
     print(Fore.GREEN +  "\nTest accuracy:", test_loss)
 
-    model.save(os.path.expanduser(f"~/ALSAI/AI/models"))
+    model.save(os.path.expanduser(f"{model_path}"))

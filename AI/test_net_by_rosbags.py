@@ -25,9 +25,9 @@ else:
     print(Fore.YELLOW + "Didn't get name for model, model's name set to \"model\"")
 
 
-model_path = os.path.expanduser(f"~/ALSAI/AI/models/{model_name}")
+model_path = os.path.expanduser(f"~/ALSAI/AI/models/{model_name}.keras")
 
 for name in os.listdir(os.path.expanduser(f"~/ALSAI/rosbags")):
-    if name is not "map5_run1" and name is not "map6_run1":
-        rosbag_path = os.path.expanduser("~/ALSAI/rosbags/{name}")
+    if name not in ["map5_run1", "map6_run1"]:
+        rosbag_path = os.path.expanduser(f"~/ALSAI/rosbags/{name}.keras")
         test_network.test(rosbag_path, model_name)
