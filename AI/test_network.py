@@ -16,8 +16,8 @@ from colorama import Fore, Style, init
 import os
 
 
-def test(rosbag_path, model_name):
-    model = load_model(model_name)
+def test(rosbag_path, model_path):
+    model = load_model(model_path)
 
     init(autoreset=True)
 

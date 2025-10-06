@@ -10,6 +10,7 @@ from tensorflow.keras.callbacks import EarlyStopping # type: ignore
 import matplotlib.pyplot as plt
 
 import train_network
+import build_model
 
 import sys
 from colorama import Fore, Style, init
@@ -23,22 +24,16 @@ if len(sys.argv) > 1:
     model_name = sys.argv[1]
 else:
     print(Fore.YELLOW + "Didn't get name for model, model's name set to \"model\"")
+    sys.exit(1)
 
 
 model_path = os.path.expanduser(f"~/ALSAI/AI/models/{model_name}")
 
 scan_length = 640
 
+
 if not os.path.exists(model_path):
-    model = Sequential([
-        Input(shape=(scan_length, 2)), 
-        Conv1D(32, kernel_size=5, activation='relu'),
-        Conv1D(64, kernel_size=5, activation='relu'),
-        Flatten(),
-        Dense(64, activation ='relu'),
-        Dropout(0.2),
-        Dense(3, activation='linear')
-    ])
+    model = build_model.build_model(model_name)
     model.save(os.path.expanduser(f"~/ALSAI/AI/models/{model_name}.keras"))
 
 for name in os.listdir(os.path.expanduser(f"~/ALSAI/rosbags")):

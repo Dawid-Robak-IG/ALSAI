@@ -28,6 +28,6 @@ else:
 model_path = os.path.expanduser(f"~/ALSAI/AI/models/{model_name}.keras")
 
 for name in os.listdir(os.path.expanduser(f"~/ALSAI/rosbags")):
-    if name not in ["map5_run1", "map6_run1"]:
-        rosbag_path = os.path.expanduser(f"~/ALSAI/rosbags/{name}.keras")
-        test_network.test(rosbag_path, model_name)
+    if name in ["map5_run1", "map6_run1"]:
+        rosbag_path = os.path.expanduser(f"~/ALSAI/rosbags/{name}")
+        test_network.test(rosbag_path, model_path)
