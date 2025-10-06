@@ -4,3 +4,4 @@ ros_workspace/log/
 sessions/
 rosbags/
 AI/__pycache__/
+AI/models/

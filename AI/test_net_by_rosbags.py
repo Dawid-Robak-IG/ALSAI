@@ -22,7 +22,8 @@ model_name = "model"
 if len(sys.argv) > 1:
     model_name = sys.argv[1]
 else:
-    print(Fore.YELLOW + "Didn't get name for model, model's name set to \"model\"")
+    print(Fore.RED + "Didn't get name for model, model's name set to \"model\"")
+    sys.exit(1)
 
 
 model_path = os.path.expanduser(f"~/ALSAI/AI/models/{model_name}.keras")
