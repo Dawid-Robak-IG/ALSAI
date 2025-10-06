@@ -25,7 +25,7 @@ else:
     print(Fore.RED + "Didn't get name for model, model's name set to \"model\"")
     sys.exit(1)
 
-
+print(Fore.GREEN + f"Got model: {model_name}")
 model_path = os.path.expanduser(f"~/ALSAI/AI/models/{model_name}.keras")
 
 for name in os.listdir(os.path.expanduser(f"~/ALSAI/rosbags")):

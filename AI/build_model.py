@@ -1,6 +1,6 @@
 import os
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv1D, Flatten, Dense, Dropout, Input, GlobalAveragePooling1D
+from tensorflow.keras.layers import Conv1D, Flatten, Dense, Dropout, Input, GlobalAveragePooling1D, LeakyReLU
 
 scan_length = 360
 
@@ -41,7 +41,39 @@ def build_model(model_name):
             Dropout(0.2),
             Dense(3, activation='linear')
         ])
-    # elif model_name == "model4":
+    elif model_name == "model_tanh":
+        model = Sequential([
+            Input(shape=(scan_length, 2)), 
+            Conv1D(32, kernel_size=5, activation='tanh'),
+            Conv1D(64, kernel_size=5, activation='tanh'),
+            Flatten(),
+            Dense(64, activation ='tanh'),
+            Dropout(0.2),
+            Dense(3, activation='linear')
+        ])
+    elif model_name == "model_leaky":
+        model = Sequential([
+            Input(shape=(scan_length, 2)), 
+            Conv1D(32, kernel_size=5),
+            LeakyReLU(alpha=0.1),
+            Conv1D(64, kernel_size=5),
+            LeakyReLU(alpha=0.1),
+            Flatten(),
+            Dense(64),
+            LeakyReLU(alpha=0.1),
+            Dropout(0.2),
+            Dense(3, activation='linear')
+        ])
+    elif model_name == "model_elu":
+        model = Sequential([
+            Input(shape=(scan_length, 2)), 
+            Conv1D(32, kernel_size=5, activation='elu'),
+            Conv1D(64, kernel_size=5, activation='elu'),
+            Flatten(),
+            Dense(64, activation ='elu'),
+            Dropout(0.2),
+            Dense(3, activation='linear')
+        ])
     # elif model_name == "model5":
     # elif model_name == "model6":
     return model

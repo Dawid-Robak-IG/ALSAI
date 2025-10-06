@@ -99,24 +99,14 @@ def test(rosbag_path, model_path):
     err_y = errors[:,1]
     err_theta = errors[:,2]
 
-    plt.figure(figsize=(12,4))
+    plt.figure(figsize=(16,4))
     plt.subplot(1,3,1)
-    plt.hist(err_x, bins=50)
-    plt.title("Błąd Δx")
-    plt.xlabel("Wartość błędu [m]")
-    plt.ylabel("Liczba próbek") 
-
+    utilities.plot_error_with_gaussian(plt, err_x, "Błąd Δx", "Wartość błędu [m]")
 
     plt.subplot(1,3,2)
-    plt.hist(err_y, bins=50)
-    plt.title("Błąd Δy")
-    plt.xlabel("Wartość błędu [m]")
-    plt.ylabel("Liczba próbek") 
+    utilities.plot_error_with_gaussian(plt, err_y, "Błąd Δy", "Wartość błędu [m]")
 
     plt.subplot(1,3,3)
-    plt.hist(err_theta, bins=50)
-    plt.title("Błąd Δθ")
-    plt.xlabel("Wartość błędu [rad]")
-    plt.ylabel("Liczba próbek")
+    utilities.plot_error_with_gaussian(plt, err_theta, "Błąd Δθ", "Wartość błędu [rad]")
 
     plt.show()
