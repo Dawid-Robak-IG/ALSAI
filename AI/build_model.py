@@ -1,8 +1,9 @@
 import os
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv1D, Flatten, Dense, Dropout, Input, GlobalAveragePooling1D, LeakyReLU
+from tensorflow.keras.layers import Conv1D, Flatten, Dense, Dropout, Input, GlobalAveragePooling1D, LeakyReLU, BatchNormalization
+from tensorflow.keras import regularizers
 
-scan_length = 360
+scan_length = 640
 
 def build_model(model_name):
     if model_name == "model1":
@@ -74,6 +75,27 @@ def build_model(model_name):
             Dropout(0.2),
             Dense(3, activation='linear')
         ])
-    # elif model_name == "model5":
-    # elif model_name == "model6":
+    elif model_name == "model_norm":
+        model = Sequential([
+            Input(shape=(scan_length, 2)), 
+            Conv1D(32, kernel_size=5, activation='relu'),
+            BatchNormalization(),
+            Conv1D(64, kernel_size=5, activation='relu'),
+            BatchNormalization(),
+            Flatten(),
+            Dense(64, activation ='relu'),
+            BatchNormalization(),
+            Dropout(0.2),
+            Dense(3, activation='linear')
+        ])
+    elif model_name == "model_reg":
+        model = Sequential([
+            Input(shape=(scan_length, 2)), 
+            Conv1D(32, kernel_size=5, activation='relu',kernel_regularizer=regularizers.l2(0.001)),
+            Conv1D(64, kernel_size=5, activation='relu',kernel_regularizer=regularizers.l2(0.001)),
+            Flatten(),
+            Dense(64, activation ='relu',kernel_regularizer=regularizers.l2(0.001)),
+            Dropout(0.2),
+            Dense(3, activation='linear')
+        ])
     return model
