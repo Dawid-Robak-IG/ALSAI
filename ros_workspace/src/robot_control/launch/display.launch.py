@@ -1,7 +1,7 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import TimerAction
-from launch.substitutions import Command
+from launch.actions import TimerAction, DeclareLaunchArgument
+from launch.substitutions import Command, LaunchConfiguration, PathJoinSubstitution
 import os
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -9,8 +9,18 @@ from ament_index_python.packages import get_package_share_directory
 from launch.actions import IncludeLaunchDescription
 
 def generate_launch_description():
-    world_path = '/home/nitron/ALSAI/worlds/maze7_world'
-    sdf_path = '/home/nitron/ALSAI/gazebo_backup/inz_rob_2_0/model.sdf'
+    declared_world_arg = DeclareLaunchArgument(
+        'world',
+        default_value='maze1_world',
+        description='Gazebo world name in worlds'
+    )
+
+
+    world_name = LaunchConfiguration('world')
+
+    world_dir = os.path.expanduser(f'~/ALSAI/worlds')
+    world_path = PathJoinSubstitution([world_dir, world_name])
+    sdf_path = os.path.expanduser('~/ALSAI/gazebo_backup/inz_rob_2_0/model.sdf')
 
     gazebo_ros_pkg = os.path.join(
         get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')
@@ -28,6 +38,8 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        declared_world_arg,
+
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(gazebo_ros_pkg),
             launch_arguments={'world': world_path}.items()
