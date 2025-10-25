@@ -5,3 +5,4 @@ sessions/
 rosbags/
 AI/__pycache__/
 AI/models/
+data/

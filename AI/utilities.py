@@ -2,6 +2,10 @@ import tf_transformations
 from scipy.stats import norm
 import numpy as np
 
+DELTA_DIST = 0.5
+DELTA_ANGLE = np.deg2rad(180.0)
+OFFSET_DATA = 5
+
 def quaternion_to_yaw(q):
     _, _, yaw = tf_transformations.euler_from_quaternion([q.x, q.y, q.z, q.w])
     return yaw
@@ -42,3 +46,19 @@ def plot_error_with_gaussian(plt, errors, title, xlabel):
     plt.xlabel(xlabel)
     plt.ylabel("Liczba próbek")
     plt.legend()
+
+def is_data_near(transformation1, transformation2):
+    x1 = transformation1[0]
+    y1 = transformation1[1]
+    yaw1 = transformation1[2]
+    x2 = transformation2[0]
+    y2 = transformation2[1]
+    yaw2 = transformation2[2]
+
+    dist = np.sqrt((x1-x2)**2 + (y1-y2)**2)
+    delta_yaw = np.arctan2(np.sin(yaw2-yaw1),np.cos(yaw2-yaw1))
+
+    if dist < DELTA_DIST and delta_yaw < DELTA_ANGLE:
+        return True
+    
+    return False
