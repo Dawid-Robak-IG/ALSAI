@@ -93,7 +93,7 @@ def train(rosbag_path, model_path):
 
     model.compile(optimizer='adam', loss='mse')
     model.summary()
-
+    # shuffle
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2
     )

@@ -32,6 +32,7 @@ model_path = os.path.expanduser(f"~/ALSAI/AI/models/{model_name}")
 scan_length = 640
 
 
+# na wszystkich danych na raz
 if not os.path.exists(model_path):
     print(Fore.GREEN + f"Building model for name: {model_name}")
     model = build_model.build_model(model_name)

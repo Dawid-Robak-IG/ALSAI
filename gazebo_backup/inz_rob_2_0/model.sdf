@@ -62,10 +62,14 @@
     <link name="laser_link">
     	<sensor name="laser" type="ray">
 		    <pose>0.01 0 0.45 0 -0 0</pose>
+		    <update_rate>10</update_rate>
+		    <always_on>1</always_on>
+		    <visualize>true</visualize>
+		    
 		    <ray>
 		      <scan>
 		        <horizontal>
-		          <samples>640</samples>
+		          <samples>360</samples>
 		          <resolution>1</resolution>
 		          <min_angle>-3.14</min_angle>
 		          <max_angle>3.14</max_angle>
@@ -81,9 +85,6 @@
 					</noise>
 		    </ray>
 		    <plugin name="laser" filename="libRayPlugin.so" />
-		    <always_on>1</always_on>
-		    <update_rate>7</update_rate>
-		    <visualize>true</visualize>
 		    
 		    <plugin name="laser" filename="libgazebo_ros_ray_sensor.so">
 					<ros>

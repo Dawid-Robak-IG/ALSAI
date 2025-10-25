@@ -19,6 +19,7 @@ init(autoreset=True)
 
 model_name = "model"
 
+# jeden wykres na architekture
 if len(sys.argv) > 1:
     model_name = sys.argv[1]
 else:
