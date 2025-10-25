@@ -1,5 +1,6 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
+from launch.actions import TimerAction
 from launch.substitutions import Command
 import os
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -13,6 +14,18 @@ def generate_launch_description():
 
     gazebo_ros_pkg = os.path.join(
         get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')
+    
+    rviz_node = TimerAction(
+        period=2.0,
+        actions=[Node(
+            package='rviz2',
+            executable='rviz2',
+            name='rviz2',
+            output='screen',
+            arguments=['-d', '/home/nitron/ALSAI/ros_workspace/src/robot_control/urdf/robot.rviz'],
+            parameters=[{'use_sim_time': True}]
+        )]
+    )
 
     return LaunchDescription([
         IncludeLaunchDescription(
@@ -45,12 +58,5 @@ def generate_launch_description():
                 'use_sim_time': True
             }]
         ),
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            output='screen',
-            arguments=['-d', '/home/nitron/ALSAI/ros_workspace/src/robot_control/urdf/robot.rviz'],
-            parameters=[{'use_sim_time': True}]
-        )
+        rviz_node
     ])
