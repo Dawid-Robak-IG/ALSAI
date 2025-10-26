@@ -22,11 +22,13 @@ def train_on_npz(data, model_path):
     init(autoreset=True)
 
     all_scan_pairs = [pair[0] for pair in data]
-    all_delta_transformation = [pair[1] for pair in data]
+    all_delta_transformation = [[pair[1] for pair in data]]
 
     X = np.stack([np.stack([s1,s2], axis=-1) for s1,s2 in all_scan_pairs])
     X = np.nan_to_num(X)
     y = np.array(all_delta_transformation, dtype=np.float32)
+    if y.shape[0] == 1 and len(y.shape) == 3:
+        y = y[0]
 
     print(Fore.GREEN + "Dataset ready: ",X.shape, y.shape)
 

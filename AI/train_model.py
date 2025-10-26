@@ -20,7 +20,7 @@ import os
 def train_model(model_name):
     init(autoreset=True)
 
-    model_path = os.path.expanduser(f"~/ALSAI/AI/models/{model_name}")
+    model_path = os.path.expanduser(f"~/ALSAI/AI/models/{model_name}.keras")
 
     if not os.path.exists(model_path):
         print(Fore.GREEN + f"Building model for name: {model_name}")
@@ -30,10 +30,11 @@ def train_model(model_name):
         print(Fore.YELLOW + "Trained model for this name already exist, exiting...")
         sys.exit(2)
 
-    data_file = os.path.expanduser(f"~/ALSAI/data/data/train_data.npz")
-    data = np.load(data_file, allow_pickle=True)
+    data_file = os.path.expanduser(f"~/ALSAI/data/train_data.npz")
+    data_npz = np.load(data_file, allow_pickle=True)
+    data = data_npz['arr_0']
 
-    train_network.train_on_npz(data, model)
+    train_network.train_on_npz(data, model_path)
 
 def main():
     if len(sys.argv) > 1:
