@@ -1,0 +1,3 @@
+python3 train_model.py model_conv1_dropout
+python3 train_model.py model_conv2_dropout
+python3 train_model.py model_conv3_dropout

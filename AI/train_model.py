@@ -32,6 +32,7 @@ def train_model(model_name):
     data = data_npz['arr_0']
 
     train_network.train_on_npz(data, model_path)
+    os.system("canberra-gtk-play -i message")
 
 def main():
     if len(sys.argv) > 1:

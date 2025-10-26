@@ -5,13 +5,13 @@ import os
 
 import test_network
 
-def train_model(model_name):
+def test_model(model_name):
     init(autoreset=True)
 
     model_path = os.path.expanduser(f"~/ALSAI/AI/models/{model_name}.keras")
 
     if not os.path.exists(model_path):
-        print(Fore.YELLOW + "TThere is no trained model for given name, exititng")
+        print(Fore.YELLOW + "There is no trained model for given name, exiting")
         sys.exit(2)
     else:
         print(Fore.GREEN + f"Got model: {model_path}")
@@ -29,7 +29,7 @@ def main():
         print(Fore.YELLOW + "Didn't get name for model, exiting")
         sys.exit(1)
 
-    train_model(model_name)
+    test_model(model_name)
 
 if __name__ == "__main__":
     main()

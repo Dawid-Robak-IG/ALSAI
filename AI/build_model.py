@@ -14,4 +14,59 @@ def build_model(model_name):
             Flatten(),
             Dense(3, activation='linear')
         ])
+    elif model_name == "model_conv2":
+        model = Sequential([
+            Input(shape=(scan_length, 2)), 
+            Conv1D(64, kernel_size=5, activation='relu'),
+            MaxPooling1D(pool_size=4),
+            Conv1D(32, kernel_size=5, activation='relu'),
+            MaxPooling1D(pool_size=4),
+            Flatten(),
+            Dense(3, activation='linear')
+        ])
+    elif model_name == "model_conv3":
+        model = Sequential([
+            Input(shape=(scan_length, 2)), 
+            Conv1D(64, kernel_size=5, activation='relu'),
+            MaxPooling1D(pool_size=4),
+            Conv1D(32, kernel_size=5, activation='relu'),
+            MaxPooling1D(pool_size=4),
+            Conv1D(16, kernel_size=5, activation='relu'),
+            MaxPooling1D(pool_size=4),
+            Flatten(),
+            Dense(3, activation='linear')
+        ])
+    elif model_name == "model_conv1_dropout":
+        model = Sequential([
+            Input(shape=(scan_length, 2)), 
+            Conv1D(64, kernel_size=5, activation='relu'),
+            MaxPooling1D(pool_size=4),
+            Flatten(),
+            Dropout(0.2),
+            Dense(3, activation='linear')
+        ])
+    elif model_name == "model_conv2_dropout":
+        model = Sequential([
+            Input(shape=(scan_length, 2)), 
+            Conv1D(64, kernel_size=5, activation='relu'),
+            MaxPooling1D(pool_size=4),
+            Conv1D(32, kernel_size=5, activation='relu'),
+            MaxPooling1D(pool_size=4),
+            Flatten(),
+            Dropout(0.2),
+            Dense(3, activation='linear')
+        ])
+    elif model_name == "model_conv3_dropout":
+        model = Sequential([
+            Input(shape=(scan_length, 2)), 
+            Conv1D(64, kernel_size=5, activation='relu'),
+            MaxPooling1D(pool_size=4),
+            Conv1D(32, kernel_size=5, activation='relu'),
+            MaxPooling1D(pool_size=4),
+            Conv1D(16, kernel_size=5, activation='relu'),
+            MaxPooling1D(pool_size=4),
+            Flatten(),
+            Dropout(0.2),
+            Dense(3, activation='linear')
+        ])
     return model
