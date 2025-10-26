@@ -57,8 +57,17 @@ def is_data_near(transformation1, transformation2):
 
     dist = np.sqrt((x1-x2)**2 + (y1-y2)**2)
     delta_yaw = np.arctan2(np.sin(yaw2-yaw1),np.cos(yaw2-yaw1))
+    dx = x2 - x1
+    dy = y2 - y1
+
+    data = {
+            "dx": dx,
+            "dy": dy,
+            "dyaw": delta_yaw,
+            "is_near": False
+        }
 
     if dist < DELTA_DIST and delta_yaw < DELTA_ANGLE:
-        return True
+        data["is_near"] = True
     
-    return False
+    return data

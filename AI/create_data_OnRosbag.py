@@ -46,6 +46,8 @@ def create_data_file(rosbag):
                                         yaw], dtype = np.float32)))
                 
     print(Fore.GREEN + f"Collected {len(scans)} scans and {len(poses)} positions.")
+    init(autoreset=True)
+
 
     scan_transformation_data = []
     scan_transformation_pairs = []
@@ -58,13 +60,18 @@ def create_data_file(rosbag):
     
     for trans_idx in range( len(scan_transformation_data) - utilities.OFFSET_DATA):
         for i in range(utilities.OFFSET_DATA):
-            if utilities.is_data_near(scan_transformation_data[trans_idx][1], scan_transformation_data[trans_idx+i+1][1]):
+            data = utilities.is_data_near(scan_transformation_data[trans_idx][1], scan_transformation_data[trans_idx+i+1][1])
+            d_trans = [data["dx"],data["dy"],data["dyaw"]]
+
+            if data["is_near"]:
                 scan_transformation_pairs.append(
-                    (scan_transformation_data[trans_idx],
-                    scan_transformation_data[trans_idx+i+1])
+                    ( (scan_transformation_data[trans_idx][0],
+                      scan_transformation_data[trans_idx+i+1][0]), d_trans )
                 )
 
     print(Fore.GREEN + f"Got pairs: {len(scan_transformation_pairs)}")
+    init(autoreset=True)
+
 
     output_folder = os.path.expanduser(f"~/ALSAI/data/single_map_data")
     os.makedirs(output_folder, exist_ok=True)
@@ -73,6 +80,8 @@ def create_data_file(rosbag):
 
     np.savez_compressed(output_file, pairs=np.array(scan_transformation_pairs, dtype=object))
     print(Fore.GREEN + f"Saved {len(scan_transformation_pairs)} pairs to {rosbag_path}")
+    init(autoreset=True)
+
 
 
 def main():

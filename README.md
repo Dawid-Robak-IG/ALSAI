@@ -30,15 +30,15 @@ python3 paths2lines.py
 ## Creating model / Training
 In order to create model run 
 ```bash
-python3 train_net_by_rosbags {model_name}
+python3 train_model {model_name}
 ```
 but remember to put name that is in ``build_model.py``
 
-Training will be done on every rosbag in ``ALSAI`` folder but for ``["map5_run1", "map6_run1"]`` (look file ``train_net_by_rosbags.py``)
+Training will be done on every rosbag in ``ALSAI`` folder but for ``["map5_run1", "map6_run1"]`` (look file ``create_tetst_train_data.py``)
 
 ## Testing
 In order to test model run 
 ```bash
-python3 test_net_by_rosbags {model_name}
+python3 test_model {model_name}
 ```
-Testing will give 2 figures. One for map **map5_run1** and one for **map6_run1** (look file ``test_net_by_rosbags.py``). Second figure will appear after closing first figure.
+Testing will give 1 figure. For map **map5_run1** and **map6_run1**.

@@ -29,8 +29,6 @@ else:
 
 model_path = os.path.expanduser(f"~/ALSAI/AI/models/{model_name}")
 
-scan_length = 640
-
 
 # na wszystkich danych na raz
 if not os.path.exists(model_path):
@@ -41,4 +39,4 @@ if not os.path.exists(model_path):
 for name in os.listdir(os.path.expanduser(f"~/ALSAI/rosbags")):
     if name not in ["map5_run1", "map6_run1"]:
         rosbag_path = os.path.expanduser(f"~/ALSAI/rosbags/{name}")
-        train_network.train(rosbag_path, os.path.expanduser(f"~/ALSAI/AI/models/{model_name}.keras"))
+        train_network.train_on_rosbag(rosbag_path, os.path.expanduser(f"~/ALSAI/AI/models/{model_name}.keras"))

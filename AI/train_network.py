@@ -15,7 +15,48 @@ from colorama import Fore, Style, init
 import os
 
 
-def train(rosbag_path, model_path):
+def train_on_npz(data, model_path):
+    print(Fore.GREEN + "Got model: ",model_path)
+    model = load_model(model_path)
+
+    init(autoreset=True)
+
+    all_scan_pairs = [pair[0] for pair in data]
+    all_delta_transformation = [pair[1] for pair in data]
+
+    X = np.stack([np.stack([s1,s2], axis=-1) for s1,s2 in all_scan_pairs])
+    X = np.nan_to_num(X)
+    y = np.array(all_delta_transformation, dtype=np.float32)
+
+    print(Fore.GREEN + "Dataset ready: ",X.shape, y.shape)
+
+    model.compile(optimizer='adam', loss='mse')
+    model.summary()
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2
+    )
+    print(Fore.GREEN + "Train shape:", X_train.shape, y_train.shape)
+    print(Fore.GREEN + "Test shape:", X_test.shape, y_test.shape)
+
+    early_stop = EarlyStopping(monitor="val_loss", patience=3, restore_best_weights=True)
+
+    model.fit(
+        X_train,
+        y_train,
+        batch_size=32,
+        epochs=25,
+        validation_split=0.2,
+        callbacks=[early_stop]
+    )
+    test_loss = model.evaluate(X_test,  y_test, verbose=0)
+    print(Fore.GREEN +  "\nTest accuracy:", test_loss)
+
+    model.save(os.path.expanduser(f"{model_path}"))
+
+
+
+
+def train_on_rosbag(rosbag_path, model_path):
     print(Fore.GREEN + "Got rosbag: ", rosbag_path)
     print(Fore.GREEN + "Got model: ",model_path)
     model = load_model(model_path)
@@ -114,3 +155,5 @@ def train(rosbag_path, model_path):
     print(Fore.GREEN +  "\nTest accuracy:", test_loss)
 
     model.save(os.path.expanduser(f"{model_path}"))
+
+
