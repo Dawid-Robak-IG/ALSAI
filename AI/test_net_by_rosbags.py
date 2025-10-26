@@ -32,4 +32,4 @@ model_path = os.path.expanduser(f"~/ALSAI/AI/models/{model_name}.keras")
 for name in os.listdir(os.path.expanduser(f"~/ALSAI/rosbags")):
     if name in ["map5_run1", "map6_run1"]:
         rosbag_path = os.path.expanduser(f"~/ALSAI/rosbags/{name}")
-        test_network.test(rosbag_path, model_path)
+        test_network.test_on_rosbag(rosbag_path, model_path)

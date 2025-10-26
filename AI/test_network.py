@@ -12,11 +12,46 @@ import matplotlib.pyplot as plt
 
 import utilities
 
-from colorama import Fore, Style, init
-import os
+from colorama import Fore, init
 
+def test_on_npz(data, model_path):
+    model = load_model(model_path)
 
-def test(rosbag_path, model_path):
+    init(autoreset=True)
+
+    all_scan_pairs = [pair[0] for pair in data]
+    all_delta_transformation = [[pair[1] for pair in data]]
+
+    X = np.stack([np.stack([s1,s2], axis=-1) for s1,s2 in all_scan_pairs])
+    X = np.nan_to_num(X)
+    y = np.array(all_delta_transformation, dtype=np.float32)
+    if y.shape[0] == 1 and len(y.shape) == 3:
+        y = y[0]
+
+    print(Fore.GREEN + "Dataset ready: ",X.shape, y.shape)
+
+    model.compile(optimizer='adam', loss='mse')
+    model.summary()
+    y_pred = model.predict(X)
+
+    errors = y - y_pred
+    err_x = errors[:,0]
+    err_y = errors[:,1]
+    err_theta = errors[:,2]
+
+    plt.figure(figsize=(16,4))
+    plt.subplot(1,3,1)
+    utilities.plot_error_with_gaussian(plt, err_x, "Błąd Δx", "Wartość błędu [m]")
+
+    plt.subplot(1,3,2)
+    utilities.plot_error_with_gaussian(plt, err_y, "Błąd Δy", "Wartość błędu [m]")
+
+    plt.subplot(1,3,3)
+    utilities.plot_error_with_gaussian(plt, err_theta, "Błąd Δθ", "Wartość błędu [rad]")
+
+    plt.show()
+
+def test_on_rosbag(rosbag_path, model_path):
     model = load_model(model_path)
 
     init(autoreset=True)

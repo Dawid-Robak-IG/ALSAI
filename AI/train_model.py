@@ -1,8 +1,5 @@
 import numpy as np
-import rosbag2_py
 from rclpy.serialization import deserialize_message
-from sensor_msgs.msg import LaserScan
-from geometry_msgs.msg import PoseStamped
 from tensorflow.keras.models import Sequential # type: ignore
 from tensorflow.keras.layers import Conv1D, Flatten, Dense, Dropout, Input # type: ignore
 from sklearn.model_selection import train_test_split
@@ -13,7 +10,7 @@ import train_network
 import build_model
 
 import sys
-from colorama import Fore, Style, init
+from colorama import Fore, init
 import os
 
 
