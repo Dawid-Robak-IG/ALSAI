@@ -17,6 +17,6 @@ else:
 
 model = build_model.build_model(model_name)
 
-model.build((None,640,2))
+model.build((None,360,2))
 model.summary()
 visualkeras.layered_view(model, scale_xy=1, scale_z=1, max_z=1000, legend=True).show()
