@@ -58,19 +58,32 @@ def create_data_file(rosbag):
         scan_transformation_data.append((scan,pose))
 
     
-    for trans_idx in range( len(scan_transformation_data) - utilities.OFFSET_DATA):
+    for idx in utilities.OFFSETs_IDX:
         for i in range(utilities.OFFSET_DATA):
-            data = utilities.is_data_near(scan_transformation_data[trans_idx][1], scan_transformation_data[trans_idx+i+1][1])
+            data = utilities.is_data_near(scan_transformation_data[idx][1], scan_transformation_data[idx+i+1][1])
             d_trans = [data["dx"],data["dy"],data["dyaw"]]
 
             if data["is_near"]:
                 scan_transformation_pairs.append(
-                    ( (scan_transformation_data[trans_idx][0],
-                      scan_transformation_data[trans_idx+i+1][0]), d_trans )
+                    ( (scan_transformation_data[idx][0],
+                      scan_transformation_data[idx+i+1][0]), d_trans )
                 )
 
     print(Fore.GREEN + f"Got pairs: {len(scan_transformation_pairs)}")
     init(autoreset=True)
+
+    if rosbag not in ["map5_run1.npz", "map6_run1.npz"]:
+        scan_transformation_pairs = utilities.make_gaussian_noise(scan_transformation_pairs, noise=0.1)
+
+        num_to_cut = int(len(scan_transformation_pairs) * utilities.CUT_FRACTION)
+        indices_to_cut = np.random.choice(len(scan_transformation_pairs), num_to_cut, replace=False)
+
+        with_cut = [scan_transformation_pairs[i] for i in indices_to_cut]
+        without_cut = [scan_transformation_pairs[i] for i in range(len(scan_transformation_pairs)) if i not in indices_to_cut]
+
+        cut_pairs = utilities.cut_data_from_scans(with_cut, max_points_to_cut=20)
+        scan_transformation_pairs = without_cut+cut_pairs
+
 
 
     output_folder = os.path.expanduser(f"~/ALSAI/data/single_map_data")

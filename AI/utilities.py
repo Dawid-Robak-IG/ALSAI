@@ -4,7 +4,8 @@ import numpy as np
 
 DELTA_DIST = 0.5
 DELTA_ANGLE = np.deg2rad(180.0)
-OFFSET_DATA = 5
+OFFSETs_IDX = [1,2,3,4,5,8,10]
+CUT_FRACTION = 0.1
 
 def quaternion_to_yaw(q):
     _, _, yaw = tf_transformations.euler_from_quaternion([q.x, q.y, q.z, q.w])
@@ -71,3 +72,28 @@ def is_data_near(transformation1, transformation2):
         data["is_near"] = True
     
     return data
+
+def make_gaussian_noise(scan_transformation_pairs, noise=0.1):
+    noisy_pairs = []
+    for scans, d_trans in scan_transformation_pairs:
+        scans_arr = np.array(scans)
+        noise_std = np.abs(scans_arr) * noise
+        noise_array = np.random.normal(0, noise_std)
+        noisy_scans = scans_arr + noise_array
+        noisy_pairs.append((tuple(noisy_scans), d_trans))
+    return noisy_pairs
+
+def cut_data_from_scan_pair(scan_pair, max_points_to_cut=20):
+    points = np.random.randint(1,max_points_to_cut)
+    idx = np.random.randint(0,360)
+    scan_pair_arr = np.array(scan_pair)
+    idxs = [(idx+i)%360 for i in range(points)]
+    scan_pair_arr[:, idxs] = 0
+    return scan_pair_arr
+
+def cut_data_from_scans(scan_transformation_pairs, max_points_to_cut=20):
+    res = []
+    for scan_pair, d_trans in scan_transformation_pairs:
+        scan_pair_cut = cut_data_from_scan_pair(scan_pair)
+        res.append(scan_pair_cut, d_trans)
+    return res    
