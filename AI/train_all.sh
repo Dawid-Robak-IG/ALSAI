@@ -3,7 +3,7 @@ python3 train_model.py model_conv2_relu
 python3 train_model.py model_conv3_relu
 python3 train_model.py model_conv1_dropout_relu
 python3 train_model.py model_conv2_dropout_relu
-python3 train_model.py model_conv3_norm_relu
+python3 train_model.py model_conv3_dropout_relu
 python3 train_model.py model_conv1_norm_relu
 python3 train_model.py model_conv2_norm_relu
 python3 train_model.py model_conv3_norm_relu
@@ -13,7 +13,7 @@ python3 train_model.py model_conv2_tanh
 python3 train_model.py model_conv3_tanh
 python3 train_model.py model_conv1_dropout_tanh
 python3 train_model.py model_conv2_dropout_tanh
-python3 train_model.py model_conv3_norm_tanh
+python3 train_model.py model_conv3_dropout_tanh
 python3 train_model.py model_conv1_norm_tanh
 python3 train_model.py model_conv2_norm_tanh
 python3 train_model.py model_conv3_norm_tanh
@@ -23,7 +23,7 @@ python3 train_model.py model_conv2_leaky
 python3 train_model.py model_conv3_leaky
 python3 train_model.py model_conv1_dropout_leaky
 python3 train_model.py model_conv2_dropout_leaky
-python3 train_model.py model_conv3_norm_leaky
+python3 train_model.py model_conv3_dropout_leaky
 python3 train_model.py model_conv1_norm_leaky
 python3 train_model.py model_conv2_norm_leaky
 python3 train_model.py model_conv3_norm_leaky

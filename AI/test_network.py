@@ -10,11 +10,11 @@ from tensorflow.keras.callbacks import EarlyStopping # type: ignore
 from tensorflow.keras.models import load_model
 import matplotlib.pyplot as plt
 
-import utilities
+import utilities, os
 
 from colorama import Fore, init
 
-def test_on_npz(data, model_path):
+def test_on_npz(data, model_path, model_name):
     model = load_model(model_path)
 
     init(autoreset=True)
@@ -52,7 +52,11 @@ def test_on_npz(data, model_path):
     utilities.plot_error_with_gaussian(plt, err_theta, "Błąd Δθ", "Wartość błędu [rad]")
     plt.xlim(-0.3,0.3)
 
-    plt.show()
+    output_file = os.path.expanduser(f"~/ALSAI/tests_figs/{model_name}.png")
+    plt.savefig(output_file, dpi=300, bbox_inches='tight')
+    print(Fore.GREEN + f"Wykres zapisany jako: {output_file}")
+
+    # plt.show()
 
 def test_on_rosbag(rosbag_path, model_path):
     model = load_model(model_path)

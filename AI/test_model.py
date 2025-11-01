@@ -20,7 +20,7 @@ def test_model(model_name):
     data_npz = np.load(data_file, allow_pickle=True)
     data = data_npz['arr_0']
 
-    test_network.test_on_npz(data, model_path)
+    test_network.test_on_npz(data, model_path, model_name)
 
 def main():
     if len(sys.argv) > 1:

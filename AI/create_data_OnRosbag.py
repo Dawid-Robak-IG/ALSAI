@@ -58,20 +58,21 @@ def create_data_file(rosbag):
         scan_transformation_data.append((scan,pose))
 
     
-    for idx in utilities.OFFSETs_IDX:
+    for trans_idx in range( len(scan_transformation_data) - max(utilities.OFFSETs_IDX)):
         for i in utilities.OFFSETs_IDX:
-            data = utilities.is_data_near(scan_transformation_data[idx][1], scan_transformation_data[idx+i+1][1])
+            data = utilities.is_data_near(scan_transformation_data[trans_idx][1], scan_transformation_data[trans_idx+i][1])
             d_trans = [data["dx"],data["dy"],data["dyaw"]]
 
             if data["is_near"]:
                 scan_transformation_pairs.append(
-                    ( (scan_transformation_data[idx][0],
-                      scan_transformation_data[idx+i+1][0]), d_trans )
+                    ( (scan_transformation_data[trans_idx][0],
+                      scan_transformation_data[trans_idx+i][0]), d_trans )
                 )
 
     print(Fore.GREEN + f"Got pairs: {len(scan_transformation_pairs)}")
     init(autoreset=True)
 
+    #noise
     if rosbag not in ["map5_run1.npz", "map6_run1.npz"]:
         scan_transformation_pairs = utilities.make_gaussian_noise(scan_transformation_pairs, noise=0.1)
         print(Fore.GREEN + "Added gaussian noise")
