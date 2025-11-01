@@ -9,6 +9,8 @@ from tensorflow.keras import regularizers
 import visualkeras
 import build_model
 
+init(autoreset=True)
+
 if len(sys.argv) > 1:
     model_name = sys.argv[1]
 else:
@@ -19,4 +21,12 @@ model = build_model.build_model(model_name)
 
 model.build((None,360,2))
 model.summary()
-visualkeras.layered_view(model, scale_xy=1, scale_z=1, max_z=100, legend=True).show()
+
+output_folder = os.path.expanduser("~/ALSAI/AI/graphical_models")
+os.makedirs(output_folder, exist_ok=True)
+
+output_path = os.path.join(output_folder,f"{model_name}.png")
+
+visualkeras.layered_view(model, scale_xy=1, scale_z=1, max_z=100, legend=True).save(output_path)
+
+print(Fore.GREEN + f"Saved graphical model: {output_path}")
