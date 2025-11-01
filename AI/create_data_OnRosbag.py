@@ -59,7 +59,7 @@ def create_data_file(rosbag):
 
     
     for idx in utilities.OFFSETs_IDX:
-        for i in range(utilities.OFFSET_DATA):
+        for i in utilities.OFFSETs_IDX:
             data = utilities.is_data_near(scan_transformation_data[idx][1], scan_transformation_data[idx+i+1][1])
             d_trans = [data["dx"],data["dy"],data["dyaw"]]
 
@@ -74,6 +74,7 @@ def create_data_file(rosbag):
 
     if rosbag not in ["map5_run1.npz", "map6_run1.npz"]:
         scan_transformation_pairs = utilities.make_gaussian_noise(scan_transformation_pairs, noise=0.1)
+        print(Fore.GREEN + "Added gaussian noise")
 
         num_to_cut = int(len(scan_transformation_pairs) * utilities.CUT_FRACTION)
         indices_to_cut = np.random.choice(len(scan_transformation_pairs), num_to_cut, replace=False)
@@ -82,6 +83,7 @@ def create_data_file(rosbag):
         without_cut = [scan_transformation_pairs[i] for i in range(len(scan_transformation_pairs)) if i not in indices_to_cut]
 
         cut_pairs = utilities.cut_data_from_scans(with_cut, max_points_to_cut=20)
+        print(Fore.GREEN + f"Cut data from {utilities.CUT_FRACTION * 100}\% of scan pairs")
         scan_transformation_pairs = without_cut+cut_pairs
 
 

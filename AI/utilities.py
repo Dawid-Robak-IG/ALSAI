@@ -95,5 +95,5 @@ def cut_data_from_scans(scan_transformation_pairs, max_points_to_cut=20):
     res = []
     for scan_pair, d_trans in scan_transformation_pairs:
         scan_pair_cut = cut_data_from_scan_pair(scan_pair)
-        res.append(scan_pair_cut, d_trans)
+        res.append( (scan_pair_cut, d_trans) )
     return res    
