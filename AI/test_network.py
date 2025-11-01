@@ -42,12 +42,15 @@ def test_on_npz(data, model_path):
     plt.figure(figsize=(16,4))
     plt.subplot(1,3,1)
     utilities.plot_error_with_gaussian(plt, err_x, "Błąd Δx", "Wartość błędu [m]")
+    plt.xlim(-0.3,0.3)
 
     plt.subplot(1,3,2)
     utilities.plot_error_with_gaussian(plt, err_y, "Błąd Δy", "Wartość błędu [m]")
+    plt.xlim(-0.3,0.3)
 
     plt.subplot(1,3,3)
     utilities.plot_error_with_gaussian(plt, err_theta, "Błąd Δθ", "Wartość błędu [rad]")
+    plt.xlim(-0.3,0.3)
 
     plt.show()
 
