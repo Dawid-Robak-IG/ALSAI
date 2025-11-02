@@ -57,6 +57,17 @@ def test_on_npz(data, model_path, model_name):
     print(Fore.GREEN + f"Wykres zapisany jako: {output_file}")
 
     # plt.show()
+    mean_err_x, std_err_x = np.mean(err_x), np.std(err_x)
+    mean_err_y, std_err_y = np.mean(err_y), np.std(err_y)
+    mean_err_theta, std_err_theta = np.mean(err_theta), np.std(err_theta)
+    results_file = os.path.expanduser("~/ALSAI/test_results.txt")
+    with open(results_file, "a") as f:
+        f.write(f"{model_name};")
+        f.write(f"{mean_err_x:.4f};{std_err_x:.4f};")
+        f.write(f"{mean_err_y:.4f};{std_err_y:.4f};")
+        f.write(f"{mean_err_theta:.4f};{std_err_theta:.4f}\n")
+
+    print(Fore.CYAN + f"Wyniki dopisane do: {results_file}")
 
 def test_on_rosbag(rosbag_path, model_path):
     model = load_model(model_path)
