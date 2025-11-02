@@ -1,3 +1,7 @@
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0" 
+
 import numpy as np
 import rosbag2_py
 from rclpy.serialization import deserialize_message
@@ -12,7 +16,6 @@ from tensorflow.keras.models import load_model
 import utilities
 
 from colorama import Fore, Style, init
-import os
 
 
 def train_on_npz(data, model_path):

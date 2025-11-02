@@ -32,6 +32,8 @@ def get_pose_for_scan(scan_time, poses):
 
 
 def plot_error_with_gaussian(plt, errors, title, xlabel):
+    errors = np.array(errors, dtype=np.float64)
+    errors = np.nan_to_num(errors, nan=0.0, posinf=0.0, neginf=0.0)
     counts, bins, _ = plt.hist(errors, bins=50, density=False, alpha=0.6, color='skyblue', edgecolor='black')
     
     mu, std = norm.fit(errors)

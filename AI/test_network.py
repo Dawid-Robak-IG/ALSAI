@@ -1,18 +1,64 @@
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0" 
+
 import numpy as np
 import rosbag2_py
 from rclpy.serialization import deserialize_message
 from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import PoseStamped
-from tensorflow.keras.models import Sequential # type: ignore
-from tensorflow.keras.layers import Conv1D, Flatten, Dense, Dropout, Input # type: ignore
+import tensorflow as tf
+from tensorflow import keras
+from keras.models import Sequential
+from keras.layers import Conv1D, Flatten, Dense, Dropout, Input
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.callbacks import EarlyStopping # type: ignore
-from tensorflow.keras.models import load_model
+from keras.callbacks import EarlyStopping
+from keras.models import load_model
 import matplotlib.pyplot as plt
 
 import utilities, os
 
 from colorama import Fore, init
+
+def save_figs_mean_std(model_name, y, y_pred, figs_folder_name ,test_file_name, xlim_on=True):
+    errors = y - y_pred
+    err_x = errors[:,0]
+    err_y = errors[:,1]
+    err_theta = errors[:,2]
+
+    plt.figure(figsize=(16,4))
+    plt.subplot(1,3,1)
+    utilities.plot_error_with_gaussian(plt, err_x, "Błąd Δx", "Wartość błędu [m]")
+    if xlim_on:
+        plt.xlim(-0.3,0.3)
+
+    plt.subplot(1,3,2)
+    utilities.plot_error_with_gaussian(plt, err_y, "Błąd Δy", "Wartość błędu [m]")
+    if xlim_on:
+        plt.xlim(-0.3,0.3)
+
+    plt.subplot(1,3,3)
+    utilities.plot_error_with_gaussian(plt, err_theta, "Błąd Δθ", "Wartość błędu [rad]")
+    if xlim_on:
+        plt.xlim(-0.3,0.3)
+
+    output_file = os.path.expanduser(f"~/ALSAI/{figs_folder_name}/{model_name}.png")
+    plt.savefig(output_file, dpi=300, bbox_inches='tight')
+    print(Fore.GREEN + f"Wykres zapisany jako: {output_file}")
+
+    # plt.show()
+    mean_err_x, std_err_x = np.mean(err_x), np.std(err_x)
+    mean_err_y, std_err_y = np.mean(err_y), np.std(err_y)
+    mean_err_theta, std_err_theta = np.mean(err_theta), np.std(err_theta)
+    results_file = os.path.expanduser(f"~/ALSAI/{test_file_name}.txt")
+    with open(results_file, "a") as f:
+        f.write(f"{model_name};")
+        f.write(f"{mean_err_x:.4f};{std_err_x:.4f};")
+        f.write(f"{mean_err_y:.4f};{std_err_y:.4f};")
+        f.write(f"{mean_err_theta:.4f};{std_err_theta:.4f}\n")
+
+    print(Fore.CYAN + f"Wyniki dopisane do: {results_file}")
+
 
 def test_on_npz(data, model_path, model_name):
     model = load_model(model_path)
@@ -33,41 +79,36 @@ def test_on_npz(data, model_path, model_name):
     model.compile(optimizer='adam', loss='mse')
     model.summary()
     y_pred = model.predict(X)
+    save_figs_mean_std(model_name, y, y_pred, "tests_figs", "test_results")
 
-    errors = y - y_pred
-    err_x = errors[:,0]
-    err_y = errors[:,1]
-    err_theta = errors[:,2]
 
-    plt.figure(figsize=(16,4))
-    plt.subplot(1,3,1)
-    utilities.plot_error_with_gaussian(plt, err_x, "Błąd Δx", "Wartość błędu [m]")
-    plt.xlim(-0.3,0.3)
+def test_tflite(data, _model_path, model_name):
+    init(autoreset=True)
 
-    plt.subplot(1,3,2)
-    utilities.plot_error_with_gaussian(plt, err_y, "Błąd Δy", "Wartość błędu [m]")
-    plt.xlim(-0.3,0.3)
+    interpreter = tf.lite.Interpreter(model_path=_model_path)
+    interpreter.allocate_tensors()
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
 
-    plt.subplot(1,3,3)
-    utilities.plot_error_with_gaussian(plt, err_theta, "Błąd Δθ", "Wartość błędu [rad]")
-    plt.xlim(-0.3,0.3)
+    all_scan_pairs = [pair[0] for pair in data]
+    all_delta_transformation = [[pair[1] for pair in data]]
+    X = np.stack([np.stack([s1,s2], axis=-1) for s1,s2 in all_scan_pairs])
+    X = np.nan_to_num(X)
+    y = np.array(all_delta_transformation, dtype=np.float32)
+    if y.shape[0] == 1 and len(y.shape) == 3:
+        y = y[0]
+    print(Fore.GREEN + "Dataset ready: ",X.shape, y.shape)
 
-    output_file = os.path.expanduser(f"~/ALSAI/tests_figs/{model_name}.png")
-    plt.savefig(output_file, dpi=300, bbox_inches='tight')
-    print(Fore.GREEN + f"Wykres zapisany jako: {output_file}")
+    y_pred = []
+    for sample in X:
+        sample = np.expand_dims(sample, axis=0).astype(np.float32)
+        interpreter.set_tensor(input_details[0]['index'], sample)
+        output = interpreter.get_tensor(output_details[0]['index'])
+        y_pred.append(output[0])
+    y_pred = np.array(y_pred)
 
-    # plt.show()
-    mean_err_x, std_err_x = np.mean(err_x), np.std(err_x)
-    mean_err_y, std_err_y = np.mean(err_y), np.std(err_y)
-    mean_err_theta, std_err_theta = np.mean(err_theta), np.std(err_theta)
-    results_file = os.path.expanduser("~/ALSAI/test_results.txt")
-    with open(results_file, "a") as f:
-        f.write(f"{model_name};")
-        f.write(f"{mean_err_x:.4f};{std_err_x:.4f};")
-        f.write(f"{mean_err_y:.4f};{std_err_y:.4f};")
-        f.write(f"{mean_err_theta:.4f};{std_err_theta:.4f}\n")
+    save_figs_mean_std(model_name, y, y_pred, "tflite_figs", "tflite_tests", False)
 
-    print(Fore.CYAN + f"Wyniki dopisane do: {results_file}")
 
 def test_on_rosbag(rosbag_path, model_path):
     model = load_model(model_path)

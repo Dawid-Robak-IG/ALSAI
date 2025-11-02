@@ -1,0 +1,3 @@
+python3 convert_to_tflite.py model_conv3_tanh
+python3 convert_to_tflite.py model_conv3_relu
+python3 convert_to_tflite.py model_conv3_norm_tanh

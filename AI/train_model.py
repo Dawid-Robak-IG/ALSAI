@@ -1,3 +1,7 @@
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0" 
+
 import numpy as np
 from rclpy.serialization import deserialize_message
 from tensorflow.keras.models import Sequential # type: ignore
@@ -11,7 +15,6 @@ import build_model
 
 import sys
 from colorama import Fore, init
-import os
 
 
 def train_model(model_name):
