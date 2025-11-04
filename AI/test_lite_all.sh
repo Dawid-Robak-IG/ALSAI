@@ -1,3 +1,3 @@
 python3 test_model.py model_conv3_tanh tflite
-python3 test_model.py model_conv3_relu tflite
+python3 test_model.py model_conv3_dropout_leaky tflite
 python3 test_model.py model_conv3_norm_tanh tflite

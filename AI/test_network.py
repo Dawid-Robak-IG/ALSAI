@@ -20,7 +20,7 @@ import utilities, os
 
 from colorama import Fore, init
 
-def save_figs_mean_std(model_name, y, y_pred, figs_folder_name ,test_file_name, xlim_on=True):
+def save_figs_mean_std(model_name, y, y_pred, figs_folder_name ,test_file_name, xlim_val=0.3):
     errors = y - y_pred
     err_x = errors[:,0]
     err_y = errors[:,1]
@@ -29,18 +29,15 @@ def save_figs_mean_std(model_name, y, y_pred, figs_folder_name ,test_file_name, 
     plt.figure(figsize=(16,4))
     plt.subplot(1,3,1)
     utilities.plot_error_with_gaussian(plt, err_x, "Błąd Δx", "Wartość błędu [m]")
-    if xlim_on:
-        plt.xlim(-0.3,0.3)
+    plt.xlim(-1*xlim_val,xlim_val)
 
     plt.subplot(1,3,2)
     utilities.plot_error_with_gaussian(plt, err_y, "Błąd Δy", "Wartość błędu [m]")
-    if xlim_on:
-        plt.xlim(-0.3,0.3)
+    plt.xlim(-1*xlim_val,xlim_val)
 
     plt.subplot(1,3,3)
     utilities.plot_error_with_gaussian(plt, err_theta, "Błąd Δθ", "Wartość błędu [rad]")
-    if xlim_on:
-        plt.xlim(-0.3,0.3)
+    plt.xlim(-1*xlim_val,xlim_val)
 
     output_file = os.path.expanduser(f"~/ALSAI/{figs_folder_name}/{model_name}.png")
     plt.savefig(output_file, dpi=300, bbox_inches='tight')
@@ -103,11 +100,12 @@ def test_tflite(data, _model_path, model_name):
     for sample in X:
         sample = np.expand_dims(sample, axis=0).astype(np.float32)
         interpreter.set_tensor(input_details[0]['index'], sample)
+        interpreter.invoke()
         output = interpreter.get_tensor(output_details[0]['index'])
         y_pred.append(output[0])
     y_pred = np.array(y_pred)
 
-    save_figs_mean_std(model_name, y, y_pred, "tflite_figs", "tflite_tests", False)
+    save_figs_mean_std(model_name, y, y_pred, "tflite_figs", "tflite_tests", 0.4)
 
 
 def test_on_rosbag(rosbag_path, model_path):
