@@ -1,6 +1,9 @@
 import numpy as np
 import rosbag2_py
 from rclpy.serialization import deserialize_message
+from rosbags.rosbag1 import Reader
+from rosbags.highlevel import AnyReader
+from rosbags.typesys import get_typestore, Stores
 from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import PoseStamped
 
@@ -8,6 +11,8 @@ import utilities
 
 from colorama import Fore, Style, init
 import sys, os
+import traceback
+from pathlib import Path
 
 
 def create_data_file(rosbag):
@@ -46,8 +51,6 @@ def create_data_file(rosbag):
                                         yaw], dtype = np.float32)))
                 
     print(Fore.GREEN + f"Collected {len(scans)} scans and {len(poses)} positions.")
-    init(autoreset=True)
-
 
     scan_transformation_data = []
     scan_transformation_pairs = []
@@ -70,7 +73,6 @@ def create_data_file(rosbag):
                 )
 
     print(Fore.GREEN + f"Got pairs: {len(scan_transformation_pairs)}")
-    init(autoreset=True)
 
     #noise
     if rosbag not in ["map5_run1.npz", "map6_run1.npz"]:
@@ -87,8 +89,6 @@ def create_data_file(rosbag):
         print(Fore.GREEN + f"Cut data from {utilities.CUT_FRACTION * 100}\% of scan pairs")
         scan_transformation_pairs = without_cut+cut_pairs
 
-
-
     output_folder = os.path.expanduser(f"~/ALSAI/data/single_map_data")
     os.makedirs(output_folder, exist_ok=True)
 
@@ -96,13 +96,93 @@ def create_data_file(rosbag):
 
     np.savez_compressed(output_file, pairs=np.array(scan_transformation_pairs, dtype=object))
     print(Fore.GREEN + f"Saved {len(scan_transformation_pairs)} pairs to {rosbag_path}")
+
+def create_data_file_Melodic(rosbag_filename):
+    path_str = os.path.expanduser(f"~/ALSAI/jetbot/{rosbag_filename}")
+    rosbag_path = Path(path_str)
+    
+    print("Got rosbag: ", rosbag_path)
+
+    typestore = get_typestore(Stores.ROS1_NOETIC)
+    scans = []
+    poses = []
+
+    try:
+        with AnyReader([rosbag_path], default_typestore=typestore) as reader:
+            connections = [x for x in reader.connections if x.topic in ['/scan', '/r1/pose']]
+
+            for connection, timestamp, rawdata in reader.messages(connections=connections):
+                msg = reader.deserialize(rawdata, connection.msgtype)
+
+                if connection.topic == "/scan":
+                    scan = np.array(msg.ranges, dtype=np.float32)
+                    scan = np.nan_to_num(scan, nan=0.0, posinf=0.0, neginf=0.0)
+                    scans.append((timestamp, scan))
+
+                elif connection.topic == "/r1/pose":
+                    yaw = utilities.quaternion_to_yaw(msg.pose.orientation)
+                    poses.append((timestamp, np.array([
+                                            msg.pose.position.x,
+                                            msg.pose.position.y,
+                                            yaw], dtype=np.float32)))
+
+    except Exception as e:
+        print(Fore.RED + f"Error processing bag: {e}")
+        traceback.print_exc()
+        sys.exit(1)
+                
+    print(Fore.GREEN + f"Collected {len(scans)} scans and {len(poses)} positions.")
+    
+    scan_transformation_data = []
+    scan_transformation_pairs = []
+
+    for t, scan in scans:
+        pose = utilities.get_pose_for_scan(t, poses)
+        scan_transformation_data.append((scan, pose))
+
+    for trans_idx in range(len(scan_transformation_data) - max(utilities.OFFSETs_IDX)):
+        for i in utilities.OFFSETs_IDX:
+            idx_curr = trans_idx
+            idx_next = trans_idx + i
+            
+            if idx_next >= len(scan_transformation_data):
+                continue
+
+            pose_curr = scan_transformation_data[idx_curr][1]
+            pose_next = scan_transformation_data[idx_next][1]
+
+            if pose_curr is None or pose_next is None:
+                continue
+
+            data = utilities.is_data_near(pose_curr, pose_next)
+            d_trans = [data["dx"], data["dy"], data["dyaw"]]
+
+            if data["is_near"]:
+                scan_transformation_pairs.append(
+                    ((scan_transformation_data[idx_curr][0],
+                      scan_transformation_data[idx_next][0]), d_trans)
+                )
+
+    print(Fore.GREEN + f"Got pairs: {len(scan_transformation_pairs)}")
+
+    output_folder = os.path.expanduser(f"~/ALSAI/data/single_map_data")
+    os.makedirs(output_folder, exist_ok=True)
+
+    output_filename = rosbag_filename.replace('.bag', '').replace('.npz', '')
+    output_file = os.path.join(output_folder, output_filename)
+
+    np.savez_compressed(output_file, pairs=np.array(scan_transformation_pairs, dtype=object))
+    print(Fore.GREEN + f"Saved {len(scan_transformation_pairs)} pairs to {output_file}.npz")
     init(autoreset=True)
 
 
-
 def main():
-    if len(sys.argv) > 1:
+    init(autoreset=True)
+    if len(sys.argv) == 2:
         create_data_file(sys.argv[1])
+    if len(sys.argv) > 2 and sys.argv[2] == "melodic":
+        print(Fore.LIGHTCYAN_EX + "Reading melodic bag")
+        create_data_file_Melodic(sys.argv[1])
 
 if __name__ == "__main__":
     main()
