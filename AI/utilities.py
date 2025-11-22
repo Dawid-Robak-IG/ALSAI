@@ -99,3 +99,24 @@ def cut_data_from_scans(scan_transformation_pairs, max_points_to_cut=20):
         scan_pair_cut = cut_data_from_scan_pair(scan_pair)
         res.append( (scan_pair_cut, d_trans) )
     return res    
+
+def scansX_to_scans360(scans):
+    processed_scans = []
+    target_len = 360
+    
+    x_target = np.linspace(0, 1, target_len)
+
+    for timestamp, scan in scans:
+        scan = np.array(scan, dtype=np.float32)
+        current_len = len(scan)
+
+        if current_len == target_len:
+            processed_scans.append((timestamp, scan))
+            continue
+
+        x_original = np.linspace(0, 1, current_len)
+        new_scan = np.interp(x_target, x_original, scan).astype(np.float32)
+        
+        processed_scans.append((timestamp, new_scan))
+
+    return processed_scans

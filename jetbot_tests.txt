@@ -1,0 +1,2 @@
+Model;meanx;stdx;meany;stdy;meantheta;stdtheta
+model_conv3_dropout_leaky;-0.0064;0.0620;-0.0065;0.0855;0.0157;0.1115

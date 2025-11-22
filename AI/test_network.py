@@ -79,7 +79,7 @@ def test_on_npz(data, model_path, model_name):
     save_figs_mean_std(model_name, y, y_pred, "tests_figs", "test_results")
 
 
-def test_tflite(data, _model_path, model_name):
+def test_tflite(data, _model_path, model_name, is_on_real=False):
     init(autoreset=True)
 
     interpreter = tf.lite.Interpreter(model_path=_model_path)
@@ -105,7 +105,10 @@ def test_tflite(data, _model_path, model_name):
         y_pred.append(output[0])
     y_pred = np.array(y_pred)
 
-    save_figs_mean_std(model_name, y, y_pred, "tflite_figs", "tflite_tests", 0.4)
+    if is_on_real:
+        save_figs_mean_std(model_name, y, y_pred, "jetbot_figs", "jetbot_tests", 0.4)
+    else:
+        save_figs_mean_std(model_name, y, y_pred, "tflite_figs", "tflite_tests", 0.4)
 
 
 def test_on_rosbag(rosbag_path, model_path):

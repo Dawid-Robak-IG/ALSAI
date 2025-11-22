@@ -130,7 +130,8 @@ def create_data_file_Melodic(rosbag_filename):
         print(Fore.RED + f"Error processing bag: {e}")
         traceback.print_exc()
         sys.exit(1)
-                
+        
+    scans = utilities.scansX_to_scans360(scans)
     print(Fore.GREEN + f"Collected {len(scans)} scans and {len(poses)} positions.")
     
     scan_transformation_data = []
@@ -165,7 +166,7 @@ def create_data_file_Melodic(rosbag_filename):
 
     print(Fore.GREEN + f"Got pairs: {len(scan_transformation_pairs)}")
 
-    output_folder = os.path.expanduser(f"~/ALSAI/data/single_map_data")
+    output_folder = os.path.expanduser(f"~/ALSAI/data")
     os.makedirs(output_folder, exist_ok=True)
 
     output_filename = rosbag_filename.replace('.bag', '').replace('.npz', '')
@@ -180,7 +181,7 @@ def main():
     init(autoreset=True)
     if len(sys.argv) == 2:
         create_data_file(sys.argv[1])
-    if len(sys.argv) > 2 and sys.argv[2] == "melodic":
+    if len(sys.argv) > 2 and sys.argv[2] == "jetbot":
         print(Fore.LIGHTCYAN_EX + "Reading melodic bag")
         create_data_file_Melodic(sys.argv[1])
 

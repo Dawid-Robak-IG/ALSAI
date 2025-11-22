@@ -25,7 +25,7 @@ def test_model(model_name):
 
     test_network.test_on_npz(data, model_path, model_name)
 
-def test_lite_model(model_name):
+def test_lite_model(model_name,data_name="test_data"):
     init(autoreset=True)
 
     model_path = os.path.expanduser(f"~/ALSAI/AI/models/{model_name}.tflite")
@@ -36,12 +36,18 @@ def test_lite_model(model_name):
     else:
         print(Fore.GREEN + f"Got model: {model_path}")
 
-    data_file = os.path.expanduser(f"~/ALSAI/data/test_data.npz")
+    data_file = os.path.expanduser(f"~/ALSAI/data/{data_name}.npz")
     data_npz = np.load(data_file, allow_pickle=True)
-    data = data_npz['arr_0']
+    if data_name=="test_data":
+        data = data_npz['arr_0']
+    else:
+        data = data_npz['pairs']
 
     print(Fore.GREEN + "Testing lite model...")
-    test_network.test_tflite(data, model_path, model_name)
+    if data_name=="test_data":
+        test_network.test_tflite(data, model_path, model_name)
+    else:
+        test_network.test_tflite(data,model_path,model_name,True)
 
 
 def main():
@@ -53,6 +59,8 @@ def main():
 
     if len(sys.argv) > 2 and sys.argv[2] == "tflite":
         test_lite_model(model_name)
+    elif len(sys.argv) > 2 and sys.argv[2] == "jetbot":
+        test_lite_model(model_name,"DR_INZ_PRZEJAZD1")
     else:
         test_model(model_name)
 
