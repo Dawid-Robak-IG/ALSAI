@@ -6,4 +6,4 @@ rosbags/
 AI/__pycache__/
 AI/models/
 data/
-jetbot/mocap_DR_inz/
+jetbot/
