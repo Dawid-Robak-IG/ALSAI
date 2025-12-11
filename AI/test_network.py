@@ -56,7 +56,6 @@ def save_figs_mean_std(model_name, y, y_pred, figs_folder_name ,test_file_name, 
 
     print(Fore.CYAN + f"Wyniki dopisane do: {results_file}")
 
-
 def test_on_npz(data, model_path, model_name):
     model = load_model(model_path)
 
@@ -77,7 +76,6 @@ def test_on_npz(data, model_path, model_name):
     model.summary()
     y_pred = model.predict(X)
     save_figs_mean_std(model_name, y, y_pred, "tests_figs", "test_results")
-
 
 def test_tflite(data, _model_path, model_name, is_on_real=False):
     init(autoreset=True)
