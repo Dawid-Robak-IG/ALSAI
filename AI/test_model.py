@@ -37,6 +37,7 @@ def test_lite_model(model_name,data_name="test_data"):
         print(Fore.GREEN + f"Got model: {model_path}")
 
     data_file = os.path.expanduser(f"~/ALSAI/data/{data_name}.npz")
+    print(Fore.GREEN + f"Got data file: {data_file}")
     data_npz = np.load(data_file, allow_pickle=True)
     if data_name=="test_data":
         data = data_npz['arr_0']
@@ -47,6 +48,7 @@ def test_lite_model(model_name,data_name="test_data"):
     if data_name=="test_data":
         test_network.test_tflite(data, model_path, model_name)
     else:
+        print(Fore.YELLOW + "Testing on real world data")
         test_network.test_tflite(data,model_path,model_name,True)
 
 
@@ -60,7 +62,12 @@ def main():
     if len(sys.argv) > 2 and sys.argv[2] == "tflite":
         test_lite_model(model_name)
     elif len(sys.argv) > 2 and sys.argv[2] == "jetbot":
-        test_lite_model(model_name,"DR_INZ_PRZEJAZD1")
+        if sys.argv[3] == "linear":
+            test_lite_model(model_name,"DR_INZ_PRZEJAZD1_linear")
+        elif sys.argv[3] == "pick":
+            test_lite_model(model_name,"DR_INZ_PRZEJAZD1_pick")   
+        else:
+            test_lite_model(model_name,"DR_INZ_PRZEJAZD1")
     else:
         test_model(model_name)
 

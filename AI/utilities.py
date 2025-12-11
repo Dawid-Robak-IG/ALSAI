@@ -100,7 +100,7 @@ def cut_data_from_scans(scan_transformation_pairs, max_points_to_cut=20):
         res.append( (scan_pair_cut, d_trans) )
     return res    
 
-def scansX_to_scans360(scans):
+def linear_scansX_to_scans360(scans):
     processed_scans = []
     target_len = 360
     
@@ -116,6 +116,25 @@ def scansX_to_scans360(scans):
 
         x_original = np.linspace(0, 1, current_len)
         new_scan = np.interp(x_target, x_original, scan).astype(np.float32)
+        
+        processed_scans.append((timestamp, new_scan))
+
+    return processed_scans
+
+def pick_scansX_to_scans360(scans):
+    processed_scans = []
+    target_len = 360
+    
+    for timestamp, scan in scans:
+        scan = np.array(scan, dtype=np.float32)
+        current_len = len(scan)
+
+        if current_len == target_len:
+            processed_scans.append((timestamp, scan))
+            continue
+
+        indices = np.round(np.linspace(0, current_len - 1, target_len)).astype(int)
+        new_scan = scan[indices]
         
         processed_scans.append((timestamp, new_scan))
 

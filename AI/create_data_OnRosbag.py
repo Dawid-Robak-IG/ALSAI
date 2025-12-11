@@ -97,7 +97,7 @@ def create_data_file(rosbag):
     np.savez_compressed(output_file, pairs=np.array(scan_transformation_pairs, dtype=object))
     print(Fore.GREEN + f"Saved {len(scan_transformation_pairs)} pairs to {rosbag_path}")
 
-def create_data_file_Melodic(rosbag_filename):
+def create_data_file_Melodic(rosbag_filename, which_scan_X_to_360="linear"):
     path_str = os.path.expanduser(f"~/ALSAI/jetbot/{rosbag_filename}")
     rosbag_path = Path(path_str)
     
@@ -131,7 +131,13 @@ def create_data_file_Melodic(rosbag_filename):
         traceback.print_exc()
         sys.exit(1)
         
-    scans = utilities.scansX_to_scans360(scans)
+    if which_scan_X_to_360 == "linear":  
+        print(Fore.YELLOW + f"Using linear interpolation.")
+        scans = utilities.linear_scansX_to_scans360(scans)
+    elif which_scan_X_to_360 == "pick":
+        print(Fore.YELLOW + f"Using picking closest scan from laser scans.")
+        scans = utilities.pick_scansX_to_scans360(scans)
+
     print(Fore.GREEN + f"Collected {len(scans)} scans and {len(poses)} positions.")
     
     scan_transformation_data = []
@@ -170,6 +176,12 @@ def create_data_file_Melodic(rosbag_filename):
     os.makedirs(output_folder, exist_ok=True)
 
     output_filename = rosbag_filename.replace('.bag', '').replace('.npz', '')
+    if which_scan_X_to_360 == "linear":
+        print(Fore.YELLOW + f"Saving file with _linear")
+        output_filename += "_linear"
+    elif which_scan_X_to_360 == "pick":
+        print(Fore.YELLOW + f"Saving file with _pick")
+        output_filename += "_pick"
     output_file = os.path.join(output_folder, output_filename)
 
     np.savez_compressed(output_file, pairs=np.array(scan_transformation_pairs, dtype=object))
@@ -183,7 +195,10 @@ def main():
         create_data_file(sys.argv[1])
     if len(sys.argv) > 2 and sys.argv[2] == "jetbot":
         print(Fore.LIGHTCYAN_EX + "Reading melodic bag")
-        create_data_file_Melodic(sys.argv[1])
+        if len(sys.argv) > 3:
+            create_data_file_Melodic(sys.argv[1],sys.argv[3])
+        else:
+            create_data_file_Melodic(sys.argv[1])
 
 if __name__ == "__main__":
     main()
