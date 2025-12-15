@@ -27,6 +27,16 @@ If your ``svg`` file doesn't have just lines just put it through:
 python3 paths2lines.py
 ```
 
+## Creating data from rosbag
+In order to create data npz based on rosbag run:
+```bash
+python3 create_data_OnRosbag.py {mapX_runX}
+```
+and then create test,train data run:
+```bash
+python3 create_test_train_data.py
+```
+
 ## Creating model / Training
 In order to create model run 
 ```bash
@@ -42,3 +52,26 @@ In order to test model run
 python3 test_model {model_name}
 ```
 Testing will give 1 figure. For map **map5_run1** and **map6_run1**.
+
+If you want to test tflite model run:
+```bash
+python3 test_model {model_name} tflite
+```
+
+If you want to test on real data from jetbot run:
+```bash
+python3 test_model {model_name} jetbot {processing scans}
+```
+in processing scans wrtie linear for linear interpolation or pick for picking closest point.
+
+## Converting to TF lite
+In order to convert model .keras to .tflite run:
+```bash
+python3 convert_to_tflite.py {model_name}
+```
+
+## Graphical model (visual keras)
+In order to generate graphical model run:
+```bash
+python3 graphical_model.py {model_name}
+```
