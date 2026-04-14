@@ -72,7 +72,7 @@ def plot_trajectories(traj_true, traj_pred, traj_odom):
 
 def get_predictions_tflite():
     model_path = os.path.expanduser(f"~/ALSAI/AI/models/model_conv3_dropout_leaky.tflite")
-    data_file = os.path.expanduser(f"~/ALSAI/data/DR_INZ_PRZEJAZD1.npz")
+    data_file = os.path.expanduser(f"~/ALSAI/data/trajektoryDR_INZ_PRZEJAZD1_linear.npz")
     print(Fore.GREEN + f"Got data file: {data_file}")
     
     data_npz = np.load(data_file, allow_pickle=True)

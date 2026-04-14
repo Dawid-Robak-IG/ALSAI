@@ -188,6 +188,104 @@ def create_data_file_Melodic(rosbag_filename, which_scan_X_to_360="linear"):
     print(Fore.GREEN + f"Saved {len(scan_transformation_pairs)} pairs to {output_file}.npz")
     init(autoreset=True)
 
+def create_data_traj_file_Melodic(rosbag_filename, which_scan_X_to_360="linear"):
+    path_str = os.path.expanduser(f"~/ALSAI/jetbot/{rosbag_filename}")
+    rosbag_path = Path(path_str)
+    
+    print("Got rosbag: ", rosbag_path)
+
+    typestore = get_typestore(Stores.ROS1_NOETIC)
+    scans = []
+    poses = []
+
+    try:
+        with AnyReader([rosbag_path], default_typestore=typestore) as reader:
+            connections = [x for x in reader.connections if x.topic in ['/scan', '/r1/pose']]
+
+            for connection, timestamp, rawdata in reader.messages(connections=connections):
+                msg = reader.deserialize(rawdata, connection.msgtype)
+
+                if connection.topic == "/scan":
+                    scan = np.array(msg.ranges, dtype=np.float32)
+                    scan = np.nan_to_num(scan, nan=0.0, posinf=0.0, neginf=0.0)
+                    scans.append((timestamp, scan))
+
+                elif connection.topic == "/r1/pose":
+                    yaw = utilities.quaternion_to_yaw(msg.pose.orientation)
+                    poses.append((timestamp, np.array([
+                                            msg.pose.position.x,
+                                            msg.pose.position.y,
+                                            yaw], dtype=np.float32)))
+
+    except Exception as e:
+        print(Fore.RED + f"Error processing bag: {e}")
+        traceback.print_exc()
+        sys.exit(1)
+        
+    if which_scan_X_to_360 == "linear":  
+        print(Fore.YELLOW + f"Using linear interpolation.")
+        scans = utilities.linear_scansX_to_scans360(scans)
+    elif which_scan_X_to_360 == "pick":
+        print(Fore.YELLOW + f"Using picking closest scan from laser scans.")
+        scans = utilities.pick_scansX_to_scans360(scans)
+
+    print(Fore.GREEN + f"Collected {len(scans)} scans and {len(poses)} positions.")
+    
+    scan_transformation_data = []
+    scan_transformation_pairs = []
+
+    for t, scan in scans:
+        pose = utilities.get_pose_for_scan(t, poses)
+        scan_transformation_data.append((scan, pose))
+
+    step = 1
+    trans_idx = 0
+    
+    while trans_idx <= (len(scan_transformation_data) - step - 1):
+        idx_curr = trans_idx
+        idx_next = trans_idx + step
+        
+        pose_curr = scan_transformation_data[idx_curr][1]
+        pose_next = scan_transformation_data[idx_next][1]
+
+        if pose_curr is None or pose_next is None:
+            trans_idx += 1
+            continue
+
+        data = utilities.is_data_near(pose_curr, pose_next)
+        
+        min_dist = 0.02
+        min_angle = np.deg2rad(1.0)
+
+        if data["is_near"] and (abs(data["dx"]) > min_dist or abs(data["dy"]) > min_dist or abs(data["dyaw"]) > min_angle):
+            d_trans = [data["dx"], data["dy"], data["dyaw"]]
+            
+            scan_transformation_pairs.append(
+                ((scan_transformation_data[idx_curr][0],
+                    scan_transformation_data[idx_next][0]), d_trans)
+            )
+            trans_idx = idx_next 
+            step = 1
+        else: 
+            step += 1
+
+    print(Fore.GREEN + f"Got pairs: {len(scan_transformation_pairs)}")
+
+    output_folder = os.path.expanduser(f"~/ALSAI/data")
+    os.makedirs(output_folder, exist_ok=True)
+
+    output_filename = "trajektory" + rosbag_filename.replace('.bag', '').replace('.npz', '')
+    if which_scan_X_to_360 == "linear":
+        print(Fore.YELLOW + f"Saving file with _linear")
+        output_filename += "_linear"
+    elif which_scan_X_to_360 == "pick":
+        print(Fore.YELLOW + f"Saving file with _pick")
+        output_filename += "_pick"
+    output_file = os.path.join(output_folder, output_filename)
+
+    np.savez_compressed(output_file, pairs=np.array(scan_transformation_pairs, dtype=object))
+    print(Fore.GREEN + f"Saved {len(scan_transformation_pairs)} pairs to {output_file}.npz")
+
 
 def main():
     init(autoreset=True)
@@ -199,6 +297,9 @@ def main():
             create_data_file_Melodic(sys.argv[1],sys.argv[3])
         else:
             create_data_file_Melodic(sys.argv[1])
+    elif len(sys.argv) > 2 and sys.argv[2] == "traj":
+        print(Fore.GREEN + "GOING WITH TRAJEKTORY")
+        create_data_traj_file_Melodic(sys.argv[1])
 
 if __name__ == "__main__":
     main()
